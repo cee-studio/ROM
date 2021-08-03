@@ -1,4 +1,4 @@
-CC      = gcc
+#CC      = gcc
 PROF    = -O -g
 NOCRYPT =
 C_FLAGS =  -Wall $(PROF) $(NOCRYPT)
