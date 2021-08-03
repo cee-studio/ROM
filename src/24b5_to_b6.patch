@@ -1,0 +1,3776 @@
+diff -b -w -c -r Rom24old/README.rom Rom24/README.rom
+*** Rom24old/README.rom	Tue Feb 24 01:15:47 1998
+--- Rom24/README.rom	Wed May 27 16:21:53 1998
+***************
+*** 13,29 ****
+  Be sure to add new pc races to both the race table and the pc race
+  table, and make sure the order is the same.
+  
+! If you have any questions, feel free to bug me at rtaylor@efn.org.  There is
+! also a mailing list at rom@cmc.net, to join it, send to subject subscribe to
+! rom-request@cmc.net.  Thanks to Brian Moore for providing the list site.
+  
+  (the final ROM 2.4 is in the works, if that's your question)
+  
+  Alander 
+  
+! [Also read the Rom FAQ material, located at http://www.hypercube.org/tess/rom.
+  There are short explanations of how to get the mud running for the first time,
+  and short answers to simple questions.  Much more detailed matters are handled
+  in Garry Turkington's Rom FAQ, also located at that site.  Thanks Garry!
+  -- Satin]
+- 
+--- 13,32 ----
+  Be sure to add new pc races to both the race table and the pc race
+  table, and make sure the order is the same.
+  
+! The ROM FAQ, by Gary Turkington, is available online at:
+! http://www.hypercube.org/tess/rom/
+  
++ If you have any questions not covered by the FAQ, feel free to bug me at
++ rtaylor@hypercube.org.  There is also a mailing list at rom@rom.org, to join
++ it, send to subject subscribe to rom-request@rom.org.  Thanks to Brian Moore
++ for providing the list site.
++ 
+  (the final ROM 2.4 is in the works, if that's your question)
+  
+  Alander 
+  
+! [Please read the Rom FAQ material, located at http://www.hypercube.org/tess/rom.
+  There are short explanations of how to get the mud running for the first time,
+  and short answers to simple questions.  Much more detailed matters are handled
+  in Garry Turkington's Rom FAQ, also located at that site.  Thanks Garry!
+  -- Satin]
+diff -b -w -c -r Rom24old/README.version Rom24/README.version
+*** Rom24old/README.version	Sat May 23 16:24:50 1998
+--- Rom24/README.version	Fri May 29 15:17:29 1998
+***************
+*** 1 ****
+! ROM 2.4b5, May 23, 1998
+--- 1 ----
+! ROM 2.4b6, May 29, 1998
+Common subdirectories: Rom24old/area and Rom24/area
+Common subdirectories: Rom24old/doc and Rom24/doc
+Common subdirectories: Rom24old/gods and Rom24/gods
+Common subdirectories: Rom24old/log and Rom24/log
+Common subdirectories: Rom24old/player and Rom24/player
+Common subdirectories: Rom24old/src and Rom24/src
+diff -b -w -c -r Rom24old/area/rom.are Rom24/area/rom.are
+*** Rom24old/area/rom.are	Sat May 23 14:43:55 1998
+--- Rom24/area/rom.are	Fri May 29 15:19:32 1998
+***************
+*** 1,4 ****
+--- 1,15 ----
+  #HELPS
++ -1 NEWBIE INFO~
++ Ah! Another mortal, seeking adventure.  You should go through mudschool first,
++ to gain experience to face the trials outside.  Be sure to practice a weapon
++ in the guild room, or your stay with us shall be very short indeed.  Type
++ 'equipment' to see what your are wielding, 'spells' to see your spells,
++ 'skills' to see your skills, and 'commands' for a list of commands. Help is
++ available on most commands and abilities.
++ 
++ Please type 'help rules' to see the Rules of ROM.
++ ~
++ 
+  -1 LAG~
+  Twas dial-up, and the failing mudders did toil and struggle in the fray
+  All checksummed were the compressed files
+***************
+*** 119,125 ****
+  
+  Bug reports --
+      Thanks to Shad Muegge, Jerome Despret, Phoenix, Will Hongach,
+!     Erwin S. Andreasen and Adam Debus for help spotting bugs
+  
+  ROM 2.4 was developed during my time with Moosehead mud, and the release
+  shares many of the features I wrote while I was there.  Additional code
+--- 130,137 ----
+  
+  Bug reports --
+      Thanks to Shad Muegge, Jerome Despret, Phoenix, Will Hongach,
+!     Erwin S. Andreasen, Adam Debus and especially Gary Turkington
+!     (author of the ROM FAQ) for help spotting bugs
+  
+  ROM 2.4 was developed during my time with Moosehead mud, and the release
+  shares many of the features I wrote while I was there.  Additional code
+diff -b -w -c -r Rom24old/doc/rom.credits Rom24/doc/rom.credits
+*** Rom24old/doc/rom.credits	Sat May 23 14:42:18 1998
+--- Rom24/doc/rom.credits	Wed May 27 16:00:04 1998
+***************
+*** 36,42 ****
+  
+  Bug reports --
+      Thanks to Shad Muegge, Jerome Despret, Phoenix, Will Hongach,
+!     Erwin S. Andreasen and Adam Debus for help spotting bugs
+  
+  ROM 2.4 was developed during my time with Moosehead mud, and the release
+  shares many of the features I wrote while I was there.  Additional code
+--- 36,43 ----
+  
+  Bug reports --
+      Thanks to Shad Muegge, Jerome Despret, Phoenix, Will Hongach,
+!     Erwin S. Andreasen, Adam Debus and especially Gary Turkington
+!     (author of the ROM FAQ) for help spotting bugs
+  
+  ROM 2.4 was developed during my time with Moosehead mud, and the release
+  shares many of the features I wrote while I was there.  Additional code
+Only in Rom24/src: Makefile.linux
+diff -b -w -c -r Rom24old/src/act_comm.c Rom24/src/act_comm.c
+*** Rom24old/src/act_comm.c	Sat May 23 14:50:57 1998
+--- Rom24/src/act_comm.c	Wed May 27 16:23:48 1998
+***************
+*** 36,47 ****
+  #include <stdlib.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "recycle.h"
+  #include "tables.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_quit	);
+- 
+  /* RT code to delete yourself */
+  
+  void do_delet( CHAR_DATA *ch, char *argument)
+--- 36,45 ----
+  #include <stdlib.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "recycle.h"
+  #include "tables.h"
+  
+  /* RT code to delete yourself */
+  
+  void do_delet( CHAR_DATA *ch, char *argument)
+***************
+*** 69,75 ****
+      	    sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( ch->name ) );
+  	    wiznet("$N turns $Mself into line noise.",ch,NULL,0,0,0);
+  	    stop_fighting(ch,TRUE);
+! 	    do_quit(ch,"");
+  	    unlink(strsave);
+  	    return;
+   	}
+--- 67,73 ----
+      	    sprintf( strsave, "%s%s", PLAYER_DIR, capitalize( ch->name ) );
+  	    wiznet("$N turns $Mself into line noise.",ch,NULL,0,0,0);
+  	    stop_fighting(ch,TRUE);
+! 	    do_function(ch, &do_quit, "");
+  	    unlink(strsave);
+  	    return;
+   	}
+diff -b -w -c -r Rom24old/src/act_enter.c Rom24/src/act_enter.c
+*** Rom24old/src/act_enter.c	Sat May 23 14:51:25 1998
+--- Rom24/src/act_enter.c	Wed May 27 17:37:33 1998
+***************
+*** 36,46 ****
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_look		);
+- DECLARE_DO_FUN(do_stand		);
+- 
+  /* random room generation procedure */
+  ROOM_INDEX_DATA  *get_random_room(CHAR_DATA *ch)
+  {
+--- 36,43 ----
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
++ #include "interp.h"
+  
+  /* random room generation procedure */
+  ROOM_INDEX_DATA  *get_random_room(CHAR_DATA *ch)
+  {
+***************
+*** 151,157 ****
+  	else
+  	    act("$n has arrived through $p.",ch,portal,NULL,TO_ROOM);
+  
+! 	do_look(ch,"auto");
+  
+  	/* charges */
+  	if (portal->value[0] > 0)
+--- 148,154 ----
+  	else
+  	    act("$n has arrived through $p.",ch,portal,NULL,TO_ROOM);
+  
+! 	do_function(ch, &do_look, "auto");
+  
+  	/* charges */
+  	if (portal->value[0] > 0)
+***************
+*** 175,181 ****
+   
+              if ( fch->master == ch && IS_AFFECTED(fch,AFF_CHARM)
+              &&   fch->position < POS_STANDING)
+!             	do_stand(fch,"");
+  
+              if ( fch->master == ch && fch->position == POS_STANDING)
+              {
+--- 172,178 ----
+   
+              if ( fch->master == ch && IS_AFFECTED(fch,AFF_CHARM)
+              &&   fch->position < POS_STANDING)
+!             	do_function(fch, &do_stand, "");
+  
+              if ( fch->master == ch && fch->position == POS_STANDING)
+              {
+***************
+*** 191,197 ****
+              	}
+   
+              	act( "You follow $N.", fch, NULL, ch, TO_CHAR );
+! 		do_enter(fch,argument);
+              }
+      	}
+  
+--- 188,194 ----
+              	}
+   
+              	act( "You follow $N.", fch, NULL, ch, TO_CHAR );
+! 		do_function(fch, &do_enter, argument);
+              }
+      	}
+  
+diff -b -w -c -r Rom24old/src/act_info.c Rom24/src/act_info.c
+*** Rom24old/src/act_info.c	Sat May 23 15:27:00 1998
+--- Rom24/src/act_info.c	Wed May 27 17:37:17 1998
+***************
+*** 37,56 ****
+  #include <ctype.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "magic.h"
+  #include "recycle.h"
+  #include "tables.h"
+  #include "lookup.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(	do_exits	);
+- DECLARE_DO_FUN( do_look		);
+- DECLARE_DO_FUN( do_help		);
+- DECLARE_DO_FUN( do_affects	);
+- DECLARE_DO_FUN( do_play		);
+- 
+- 
+- 
+  char *	const	where_name	[] =
+  {
+      "<used as light>     ",
+--- 37,48 ----
+  #include <ctype.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "magic.h"
+  #include "recycle.h"
+  #include "tables.h"
+  #include "lookup.h"
+  
+  char *	const	where_name	[] =
+  {
+      "<used as light>     ",
+***************
+*** 75,85 ****
+  };
+  
+  
+! /* for do_count */
+  int max_on = 0;
+  
+- 
+- 
+  /*
+   * Local functions.
+   */
+--- 67,75 ----
+  };
+  
+  
+! /* for  keeping track of the player count */
+  int max_on = 0;
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 620,646 ****
+  
+  void do_motd(CHAR_DATA *ch, char *argument)
+  {
+!     do_help(ch,"motd");
+  }
+  
+  void do_imotd(CHAR_DATA *ch, char *argument)
+  {  
+!     do_help(ch,"imotd");
+  }
+  
+  void do_rules(CHAR_DATA *ch, char *argument)
+  {
+!     do_help(ch,"rules");
+  }
+  
+  void do_story(CHAR_DATA *ch, char *argument)
+  {
+!     do_help(ch,"story");
+  }
+  
+  void do_wizlist(CHAR_DATA *ch, char *argument)
+  {
+!     do_help(ch,"wizlist");
+  }
+  
+  /* RT this following section holds all the auto commands from ROM, as well as
+--- 610,636 ----
+  
+  void do_motd(CHAR_DATA *ch, char *argument)
+  {
+!     do_function(ch, &do_help, "motd");
+  }
+  
+  void do_imotd(CHAR_DATA *ch, char *argument)
+  {  
+!     do_function(ch, &do_help, "imotd");
+  }
+  
+  void do_rules(CHAR_DATA *ch, char *argument)
+  {
+!     do_function(ch, &do_help, "rules");
+  }
+  
+  void do_story(CHAR_DATA *ch, char *argument)
+  {
+!     do_function(ch, &do_help, "story");
+  }
+  
+  void do_wizlist(CHAR_DATA *ch, char *argument)
+  {
+!     do_function(ch, &do_help, "wizlist");
+  }
+  
+  /* RT this following section holds all the auto commands from ROM, as well as
+***************
+*** 1055,1061 ****
+          if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_AUTOEXIT) )
+  	{
+  	    send_to_char("\n\r",ch);
+!             do_exits( ch, "auto" );
+  	}
+  
+  	show_list_to_char( ch->in_room->contents, ch, FALSE, FALSE );
+--- 1045,1051 ----
+          if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_AUTOEXIT) )
+  	{
+  	    send_to_char("\n\r",ch);
+!             do_function(ch, &do_exits, "auto" );
+  	}
+  
+  	show_list_to_char( ch->in_room->contents, ch, FALSE, FALSE );
+***************
+*** 1251,1257 ****
+  /* RT added back for the hell of it */
+  void do_read (CHAR_DATA *ch, char *argument )
+  {
+!     do_look(ch,argument);
+  }
+  
+  void do_examine( CHAR_DATA *ch, char *argument )
+--- 1241,1247 ----
+  /* RT added back for the hell of it */
+  void do_read (CHAR_DATA *ch, char *argument )
+  {
+!     do_function(ch, &do_look, argument);
+  }
+  
+  void do_examine( CHAR_DATA *ch, char *argument )
+***************
+*** 1268,1274 ****
+  	return;
+      }
+  
+!     do_look( ch, arg );
+  
+      if ( ( obj = get_obj_here( ch, arg ) ) != NULL )
+      {
+--- 1258,1264 ----
+  	return;
+      }
+  
+!     do_function(ch, &do_look, arg );
+  
+      if ( ( obj = get_obj_here( ch, arg ) ) != NULL )
+      {
+***************
+*** 1278,1284 ****
+  	    break;
+  	
+  	case ITEM_JUKEBOX:
+! 	    do_play(ch,"list");
+  	    break;
+  
+  	case ITEM_MONEY:
+--- 1268,1274 ----
+  	    break;
+  	
+  	case ITEM_JUKEBOX:
+! 	    do_function(ch, &do_play, "list");
+  	    break;
+  
+  	case ITEM_MONEY:
+***************
+*** 1312,1318 ****
+  	case ITEM_CORPSE_NPC:
+  	case ITEM_CORPSE_PC:
+  	    sprintf(buf,"in %s",argument);
+! 	    do_look( ch, buf );
+  	}
+      }
+  
+--- 1302,1308 ----
+  	case ITEM_CORPSE_NPC:
+  	case ITEM_CORPSE_PC:
+  	    sprintf(buf,"in %s",argument);
+! 	    do_function(ch, &do_look, buf );
+  	}
+      }
+  
+***************
+*** 1627,1633 ****
+      else                             send_to_char( "satanic.\n\r", ch );
+  
+      if (IS_SET(ch->comm,COMM_SHOW_AFFECTS))
+! 	do_affects(ch,"");
+  }
+  
+  void do_affects(CHAR_DATA *ch, char *argument )
+--- 1617,1623 ----
+      else                             send_to_char( "satanic.\n\r", ch );
+  
+      if (IS_SET(ch->comm,COMM_SHOW_AFFECTS))
+! 	do_function(ch, &do_affects, "");
+  }
+  
+  void do_affects(CHAR_DATA *ch, char *argument )
+***************
+*** 2258,2264 ****
+  
+  void do_credits( CHAR_DATA *ch, char *argument )
+  {
+!     do_help( ch, "diku" );
+      return;
+  }
+  
+--- 2248,2254 ----
+  
+  void do_credits( CHAR_DATA *ch, char *argument )
+  {
+!     do_function(ch, &do_help, "diku" );
+      return;
+  }
+  
+diff -b -w -c -r Rom24old/src/act_move.c Rom24/src/act_move.c
+*** Rom24old/src/act_move.c	Sat May 23 15:27:01 1998
+--- Rom24/src/act_move.c	Wed May 27 17:40:32 1998
+***************
+*** 35,47 ****
+  #include <stdio.h>
+  #include <string.h>
+  #include "merc.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_look		);
+- DECLARE_DO_FUN(do_recall	);
+- DECLARE_DO_FUN(do_stand		);
+- 
+- 
+  char *	const	dir_name	[]		=
+  {
+      "north", "east", "south", "west", "up", "down"
+--- 35,42 ----
+  #include <stdio.h>
+  #include <string.h>
+  #include "merc.h"
++ #include "interp.h"
+  
+  char *	const	dir_name	[]		=
+  {
+      "north", "east", "south", "west", "up", "down"
+***************
+*** 204,210 ****
+      &&   ch->invis_level < LEVEL_HERO)
+  	act( "$n has arrived.", ch, NULL, NULL, TO_ROOM );
+  
+!     do_look( ch, "auto" );
+  
+      if (in_room == to_room) /* no circular follows */
+  	return;
+--- 199,205 ----
+      &&   ch->invis_level < LEVEL_HERO)
+  	act( "$n has arrived.", ch, NULL, NULL, TO_ROOM );
+  
+!     do_function(ch, &do_look, "auto" );
+  
+      if (in_room == to_room) /* no circular follows */
+  	return;
+***************
+*** 215,221 ****
+  
+  	if ( fch->master == ch && IS_AFFECTED(fch,AFF_CHARM) 
+  	&&   fch->position < POS_STANDING)
+! 	    do_stand(fch,"");
+  
+  	if ( fch->master == ch && fch->position == POS_STANDING 
+  	&&   can_see_room(fch,to_room))
+--- 210,216 ----
+  
+  	if ( fch->master == ch && IS_AFFECTED(fch,AFF_CHARM) 
+  	&&   fch->position < POS_STANDING)
+! 	    do_function(fch, &do_stand, "");
+  
+  	if ( fch->master == ch && fch->position == POS_STANDING 
+  	&&   can_see_room(fch,to_room))
+***************
+*** 935,941 ****
+  	    act("$n wakes and stands in $p.",ch,obj,NULL,TO_ROOM);
+  	}
+  	ch->position = POS_STANDING;
+! 	do_look(ch,"auto");
+  	break;
+  
+      case POS_RESTING: case POS_SITTING:
+--- 930,936 ----
+  	    act("$n wakes and stands in $p.",ch,obj,NULL,TO_ROOM);
+  	}
+  	ch->position = POS_STANDING;
+! 	do_function(ch, &do_look, "auto");
+  	break;
+  
+      case POS_RESTING: case POS_SITTING:
+***************
+*** 1316,1322 ****
+  
+      one_argument( argument, arg );
+      if ( arg[0] == '\0' )
+! 	{ do_stand( ch, argument ); return; }
+  
+      if ( !IS_AWAKE(ch) )
+  	{ send_to_char( "You are asleep yourself!\n\r",       ch ); return; }
+--- 1311,1317 ----
+  
+      one_argument( argument, arg );
+      if ( arg[0] == '\0' )
+! 	{ do_function(ch, &do_stand, ""); return; }
+  
+      if ( !IS_AWAKE(ch) )
+  	{ send_to_char( "You are asleep yourself!\n\r",       ch ); return; }
+***************
+*** 1331,1337 ****
+  	{ act( "You can't wake $M!",   ch, NULL, victim, TO_CHAR );  return; }
+  
+      act_new( "$n wakes you.", ch, NULL, victim, TO_VICT,POS_SLEEPING );
+!     do_stand(victim,"");
+      return;
+  }
+  
+--- 1326,1332 ----
+  	{ act( "You can't wake $M!",   ch, NULL, victim, TO_CHAR );  return; }
+  
+      act_new( "$n wakes you.", ch, NULL, victim, TO_VICT,POS_SLEEPING );
+!     do_function(ch, &do_stand, "");
+      return;
+  }
+  
+***************
+*** 1463,1472 ****
+      char_from_room( ch );
+      char_to_room( ch, location );
+      act( "$n appears in the room.", ch, NULL, NULL, TO_ROOM );
+!     do_look( ch, "auto" );
+      
+      if (ch->pet != NULL)
+! 	do_recall(ch->pet,"");
+  
+      return;
+  }
+--- 1458,1467 ----
+      char_from_room( ch );
+      char_to_room( ch, location );
+      act( "$n appears in the room.", ch, NULL, NULL, TO_ROOM );
+!     do_function(ch, &do_look, "auto" );
+      
+      if (ch->pet != NULL)
+! 	do_function(ch->pet, &do_recall, "");
+  
+      return;
+  }
+diff -b -w -c -r Rom24old/src/act_obj.c Rom24/src/act_obj.c
+*** Rom24old/src/act_obj.c	Sat May 23 15:27:04 1998
+--- Rom24/src/act_obj.c	Wed May 27 17:11:12 1998
+***************
+*** 36,50 ****
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_split		);
+- DECLARE_DO_FUN(do_yell		);
+- DECLARE_DO_FUN(do_say		);
+- DECLARE_DO_FUN(do_wake		);
+- 
+- 
+- 
+  /*
+   * Local functions.
+   */
+--- 36,43 ----
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
++ #include "interp.h"
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 180,186 ****
+  	  if ( members > 1 && (obj->value[0] > 1 || obj->value[1]))
+  	  {
+  	    sprintf(buffer,"%d %d",obj->value[0],obj->value[1]);
+! 	    do_split(ch,buffer);	
+  	  }
+          }
+   
+--- 173,179 ----
+  	  if ( members > 1 && (obj->value[0] > 1 || obj->value[1]))
+  	  {
+  	    sprintf(buffer,"%d %d",obj->value[0],obj->value[1]);
+! 	    do_function(ch, &do_split, buffer);	
+  	  }
+          }
+   
+***************
+*** 749,766 ****
+  		ch->reply = victim;
+  		sprintf(buf,"%d %s %s", 
+  			amount, silver ? "silver" : "gold",ch->name);
+! 		do_give(victim,buf);
+  	    }
+  	    else if (can_see(victim,ch))
+  	    {
+  		sprintf(buf,"%d %s %s", 
+  			change, silver ? "gold" : "silver",ch->name);
+! 		do_give(victim,buf);
+  		if (silver)
+  		{
+  		    sprintf(buf,"%d silver %s", 
+  			(95 * amount / 100 - change * 100),ch->name);
+! 		    do_give(victim,buf);
+  		}
+  		act("$n tells you 'Thank you, come again.'",
+  		    victim,NULL,ch,TO_VICT);
+--- 742,759 ----
+  		ch->reply = victim;
+  		sprintf(buf,"%d %s %s", 
+  			amount, silver ? "silver" : "gold",ch->name);
+! 		do_function(victim, &do_give, buf);
+  	    }
+  	    else if (can_see(victim,ch))
+  	    {
+  		sprintf(buf,"%d %s %s", 
+  			change, silver ? "gold" : "silver",ch->name);
+! 		do_function(victim, &do_give, buf);
+  		if (silver)
+  		{
+  		    sprintf(buf,"%d silver %s", 
+  			(95 * amount / 100 - change * 100),ch->name);
+! 		    do_function(victim, &do_give, buf);
+  		}
+  		act("$n tells you 'Thank you, come again.'",
+  		    victim,NULL,ch,TO_VICT);
+***************
+*** 1830,1836 ****
+  	if ( members > 1 && silver > 1)
+  	{
+  	    sprintf(buffer,"%d",silver);
+! 	    do_split(ch,buffer);	
+  	}
+      }
+  
+--- 1823,1829 ----
+  	if ( members > 1 && silver > 1)
+  	{
+  	    sprintf(buffer,"%d",silver);
+! 	    do_function(ch, &do_split, buffer);	
+  	}
+      }
+  
+***************
+*** 2219,2227 ****
+  	    break;
+          }
+          if (!IS_AWAKE(victim))
+!             do_wake(victim,"");
+  	if (IS_AWAKE(victim))
+! 	    do_yell( victim, buf );
+  	if ( !IS_NPC(ch) )
+  	{
+  	    if ( IS_NPC(victim) )
+--- 2212,2220 ----
+  	    break;
+          }
+          if (!IS_AWAKE(victim))
+!             do_function(victim, &do_wake, "");
+  	if (IS_AWAKE(victim))
+! 	    do_function(victim, &do_yell, buf );
+  	if ( !IS_NPC(ch) )
+  	{
+  	    if ( IS_NPC(victim) )
+***************
+*** 2340,2356 ****
+       *
+      if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_KILLER) )
+      {
+! 	do_say( keeper, "Killers are not welcome!" );
+  	sprintf( buf, "%s the KILLER is over here!\n\r", ch->name );
+! 	do_yell( keeper, buf );
+  	return NULL;
+      }
+  
+      if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_THIEF) )
+      {
+! 	do_say( keeper, "Thieves are not welcome!" );
+  	sprintf( buf, "%s the THIEF is over here!\n\r", ch->name );
+! 	do_yell( keeper, buf );
+  	return NULL;
+      }
+  	*/
+--- 2333,2349 ----
+       *
+      if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_KILLER) )
+      {
+! 	do_function(keeper, &do_say, "Killers are not welcome!");
+  	sprintf(buf, "%s the KILLER is over here!\n\r", ch->name);
+! 	do_function(keeper, &do_yell, buf );
+  	return NULL;
+      }
+  
+      if ( !IS_NPC(ch) && IS_SET(ch->act, PLR_THIEF) )
+      {
+! 	do_function(keeper, &do_say, "Thieves are not welcome!");
+  	sprintf(buf, "%s the THIEF is over here!\n\r", ch->name);
+! 	do_function(keeper, &do_yell, buf );
+  	return NULL;
+      }
+  	*/
+***************
+*** 2359,2371 ****
+       */
+      if ( time_info.hour < pShop->open_hour )
+      {
+! 	do_say( keeper, "Sorry, I am closed. Come back later." );
+  	return NULL;
+      }
+      
+      if ( time_info.hour > pShop->close_hour )
+      {
+! 	do_say( keeper, "Sorry, I am closed. Come back tomorrow." );
+  	return NULL;
+      }
+  
+--- 2352,2364 ----
+       */
+      if ( time_info.hour < pShop->open_hour )
+      {
+! 	do_function(keeper, &do_say, "Sorry, I am closed. Come back later.");
+  	return NULL;
+      }
+      
+      if ( time_info.hour > pShop->close_hour )
+      {
+! 	do_function(keeper, &do_say, "Sorry, I am closed. Come back tomorrow.");
+  	return NULL;
+      }
+  
+***************
+*** 2374,2380 ****
+       */
+      if ( !can_see( keeper, ch ) )
+      {
+! 	do_say( keeper, "I don't trade with folks I can't see." );
+  	return NULL;
+      }
+  
+--- 2367,2373 ----
+       */
+      if ( !can_see( keeper, ch ) )
+      {
+! 	do_function(keeper, &do_say, "I don't trade with folks I can't see.");
+  	return NULL;
+      }
+  
+***************
+*** 2628,2634 ****
+  	obj  = get_obj_keeper( ch,keeper, arg );
+  	cost = get_cost( keeper, obj, TRUE );
+  
+! 	if (number < 1)
+  	{
+  	    act("$n tells you 'Get real!",keeper,NULL,ch,TO_VICT);
+  	    return;
+--- 2621,2627 ----
+  	obj  = get_obj_keeper( ch,keeper, arg );
+  	cost = get_cost( keeper, obj, TRUE );
+  
+! 	if (number < 1 || number > 99)
+  	{
+  	    act("$n tells you 'Get real!",keeper,NULL,ch,TO_VICT);
+  	    return;
+diff -b -w -c -r Rom24old/src/act_wiz.c Rom24/src/act_wiz.c
+*** Rom24old/src/act_wiz.c	Sat May 23 15:27:07 1998
+--- Rom24/src/act_wiz.c	Thu May 28 13:14:17 1998
+***************
+*** 36,64 ****
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
+  #include "recycle.h"
+  #include "tables.h"
+  #include "lookup.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_rstat		);
+- DECLARE_DO_FUN(do_mstat		);
+- DECLARE_DO_FUN(do_ostat		);
+- DECLARE_DO_FUN(do_rset		);
+- DECLARE_DO_FUN(do_mset		);
+- DECLARE_DO_FUN(do_oset		);
+- DECLARE_DO_FUN(do_sset		);
+- DECLARE_DO_FUN(do_mfind		);
+- DECLARE_DO_FUN(do_ofind		);
+- DECLARE_DO_FUN(do_slookup	);
+- DECLARE_DO_FUN(do_mload		);
+- DECLARE_DO_FUN(do_oload		);
+- DECLARE_DO_FUN(do_quit		);
+- DECLARE_DO_FUN(do_look		);
+- DECLARE_DO_FUN(do_stand		);
+- 
+- 
+- 
+  /*
+   * Local functions.
+   */
+--- 36,46 ----
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "recycle.h"
+  #include "tables.h"
+  #include "lookup.h"
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 481,488 ****
+      return;
+  }
+  
+- 
+- 
+  void do_bamfout( CHAR_DATA *ch, char *argument )
+  {
+      char buf[MAX_STRING_LENGTH];
+--- 463,468 ----
+***************
+*** 552,558 ****
+      send_to_char( "OK.\n\r", ch );
+      save_char_obj(victim);
+      stop_fighting(victim,TRUE);
+!     do_quit( victim, "" );
+  
+      return;
+  }
+--- 532,538 ----
+      send_to_char( "OK.\n\r", ch );
+      save_char_obj(victim);
+      stop_fighting(victim,TRUE);
+!     do_function(victim, &do_quit, "" );
+  
+      return;
+  }
+***************
+*** 825,831 ****
+  	    {
+  		char buf[MAX_STRING_LENGTH];
+  		sprintf( buf, "%s %s", d->character->name, arg2 );
+! 		do_transfer( ch, buf );
+  	    }
+  	}
+  	return;
+--- 805,811 ----
+  	    {
+  		char buf[MAX_STRING_LENGTH];
+  		sprintf( buf, "%s %s", d->character->name, arg2 );
+! 		do_function(ch, &do_transfer, buf );
+  	    }
+  	}
+  	return;
+***************
+*** 874,880 ****
+      act( "$n arrives from a puff of smoke.", victim, NULL, NULL, TO_ROOM );
+      if ( ch != victim )
+  	act( "$n has transferred you.", ch, NULL, victim, TO_VICT );
+!     do_look( victim, "auto" );
+      send_to_char( "Ok.\n\r", ch );
+  }
+  
+--- 854,860 ----
+      act( "$n arrives from a puff of smoke.", victim, NULL, NULL, TO_ROOM );
+      if ( ch != victim )
+  	act( "$n has transferred you.", ch, NULL, victim, TO_VICT );
+!     do_function(victim, &do_look, "auto" );
+      send_to_char( "Ok.\n\r", ch );
+  }
+  
+***************
+*** 993,999 ****
+          }
+      }
+  
+!     do_look( ch, "auto" );
+      return;
+  }
+  
+--- 973,979 ----
+          }
+      }
+  
+!     do_function(ch, &do_look, "auto" );
+      return;
+  }
+  
+***************
+*** 1049,1055 ****
+          }
+      }
+   
+!     do_look( ch, "auto" );
+      return;
+  }
+  
+--- 1029,1035 ----
+          }
+      }
+   
+!     do_function(ch, &do_look, "auto" );
+      return;
+  }
+  
+***************
+*** 1076,1094 ****
+  
+     if (!str_cmp(arg,"room"))
+     {
+! 	do_rstat(ch,string);
+  	return;
+     }
+    
+     if (!str_cmp(arg,"obj"))
+     {
+! 	do_ostat(ch,string);
+  	return;
+     }
+  
+     if(!str_cmp(arg,"char")  || !str_cmp(arg,"mob"))
+     {
+! 	do_mstat(ch,string);
+  	return;
+     }
+     
+--- 1056,1074 ----
+  
+     if (!str_cmp(arg,"room"))
+     {
+! 	do_function(ch, &do_rstat, string);
+  	return;
+     }
+    
+     if (!str_cmp(arg,"obj"))
+     {
+! 	do_function(ch, &do_ostat, string);
+  	return;
+     }
+  
+     if(!str_cmp(arg,"char")  || !str_cmp(arg,"mob"))
+     {
+! 	do_function(ch, &do_mstat, string);
+  	return;
+     }
+     
+***************
+*** 1097,1103 ****
+     obj = get_obj_world(ch,argument);
+     if (obj != NULL)
+     {
+!      do_ostat(ch,argument);
+       return;
+     }
+  
+--- 1077,1083 ----
+     obj = get_obj_world(ch,argument);
+     if (obj != NULL)
+     {
+!      do_function(ch, &do_ostat, argument);
+       return;
+     }
+  
+***************
+*** 1104,1110 ****
+    victim = get_char_world(ch,argument);
+    if (victim != NULL)
+    {
+!     do_mstat(ch,argument);
+      return;
+    }
+  
+--- 1084,1090 ----
+    victim = get_char_world(ch,argument);
+    if (victim != NULL)
+    {
+!     do_function(ch, &do_mstat, argument);
+      return;
+    }
+  
+***************
+*** 1111,1117 ****
+    location = find_location(ch,argument);
+    if (location != NULL)
+    {
+!     do_rstat(ch,argument);
+      return;
+    }
+  
+--- 1091,1097 ----
+    location = find_location(ch,argument);
+    if (location != NULL)
+    {
+!     do_function(ch, &do_rstat, argument);
+      return;
+    }
+  
+***************
+*** 1118,1127 ****
+    send_to_char("Nothing by that name found anywhere.\n\r",ch);
+  }
+  
+-    
+- 
+- 
+- 
+  void do_rstat( CHAR_DATA *ch, char *argument )
+  {
+      char buf[MAX_STRING_LENGTH];
+--- 1098,1103 ----
+***************
+*** 1765,1788 ****
+  
+      if (!str_cmp(arg,"obj"))
+      {
+! 	do_ofind(ch,string);
+   	return;
+      }
+  
+      if (!str_cmp(arg,"mob") || !str_cmp(arg,"char"))
+      { 
+! 	do_mfind(ch,string);
+  	return;
+      }
+  
+      if (!str_cmp(arg,"skill") || !str_cmp(arg,"spell"))
+      {
+! 	do_slookup(ch,string);
+  	return;
+      }
+      /* do both */
+!     do_mfind(ch,argument);
+!     do_ofind(ch,argument);
+  }
+  
+  
+--- 1741,1764 ----
+  
+      if (!str_cmp(arg,"obj"))
+      {
+! 	do_function(ch, &do_ofind, string);
+   	return;
+      }
+  
+      if (!str_cmp(arg,"mob") || !str_cmp(arg,"char"))
+      { 
+! 	do_function(ch, &do_mfind, string);
+  	return;
+      }
+  
+      if (!str_cmp(arg,"skill") || !str_cmp(arg,"spell"))
+      {
+! 	do_function (ch, &do_slookup, string);
+  	return;
+      }
+      /* do both */
+!     do_function(ch, &do_mfind, argument);
+!     do_function(ch, &do_ofind, argument);
+  }
+  
+  
+***************
+*** 2036,2042 ****
+      if (ch->invis_level < LEVEL_HERO)
+      {
+      	sprintf( buf, "Reboot by %s.", ch->name );
+!     	do_echo( ch, buf );
+      }
+  
+      merc_down = TRUE;
+--- 2012,2018 ----
+      if (ch->invis_level < LEVEL_HERO)
+      {
+      	sprintf( buf, "Reboot by %s.", ch->name );
+!     	do_function(ch, &do_echo, buf );
+      }
+  
+      merc_down = TRUE;
+***************
+*** 2052,2059 ****
+      return;
+  }
+  
+- 
+- 
+  void do_shutdow( CHAR_DATA *ch, char *argument )
+  {
+      send_to_char( "If you want to SHUTDOWN, spell it out.\n\r", ch );
+--- 2028,2033 ----
+***************
+*** 2060,2067 ****
+      return;
+  }
+  
+- 
+- 
+  void do_shutdown( CHAR_DATA *ch, char *argument )
+  {
+      char buf[MAX_STRING_LENGTH];
+--- 2034,2039 ----
+***************
+*** 2074,2080 ****
+      append_file( ch, SHUTDOWN_FILE, buf );
+      strcat( buf, "\n\r" );
+      if (ch->invis_level < LEVEL_HERO)
+!     	do_echo( ch, buf );
+      merc_down = TRUE;
+      for ( d = descriptor_list; d != NULL; d = d_next)
+      {
+--- 2046,2054 ----
+      append_file( ch, SHUTDOWN_FILE, buf );
+      strcat( buf, "\n\r" );
+      if (ch->invis_level < LEVEL_HERO)
+!     {
+!     	do_function(ch, &do_echo, buf );
+!     }
+      merc_down = TRUE;
+      for ( d = descriptor_list; d != NULL; d = d_next)
+      {
+***************
+*** 2470,2486 ****
+  
+      if (!str_cmp(arg,"mob") || !str_cmp(arg,"char"))
+      {
+! 	do_mload(ch,argument);
+  	return;
+      }
+  
+      if (!str_cmp(arg,"obj"))
+      {
+! 	do_oload(ch,argument);
+  	return;
+      }
+      /* echo syntax */
+!     do_load(ch,"");
+  }
+  
+  
+--- 2444,2460 ----
+  
+      if (!str_cmp(arg,"mob") || !str_cmp(arg,"char"))
+      {
+! 	do_function(ch, &do_mload, argument);
+  	return;
+      }
+  
+      if (!str_cmp(arg,"obj"))
+      {
+! 	do_function(ch, &do_oload, argument);
+  	return;
+      }
+      /* echo syntax */
+!     do_function(ch, &do_load, "");
+  }
+  
+  
+***************
+*** 3245,3273 ****
+  
+      if (!str_prefix(arg,"mobile") || !str_prefix(arg,"character"))
+      {
+! 	do_mset(ch,argument);
+  	return;
+      }
+  
+      if (!str_prefix(arg,"skill") || !str_prefix(arg,"spell"))
+      {
+! 	do_sset(ch,argument);
+  	return;
+      }
+  
+      if (!str_prefix(arg,"object"))
+      {
+! 	do_oset(ch,argument);
+  	return;
+      }
+  
+      if (!str_prefix(arg,"room"))
+      {
+! 	do_rset(ch,argument);
+  	return;
+      }
+      /* echo syntax */
+!     do_set(ch,"");
+  }
+  
+  
+--- 3219,3247 ----
+  
+      if (!str_prefix(arg,"mobile") || !str_prefix(arg,"character"))
+      {
+! 	do_function(ch, &do_mset, argument);
+  	return;
+      }
+  
+      if (!str_prefix(arg,"skill") || !str_prefix(arg,"spell"))
+      {
+! 	do_function(ch, &do_sset, argument);
+  	return;
+      }
+  
+      if (!str_prefix(arg,"object"))
+      {
+! 	do_function(ch, &do_oset, argument);
+  	return;
+      }
+  
+      if (!str_prefix(arg,"room"))
+      {
+! 	do_function(ch, &do_rset, argument);
+  	return;
+      }
+      /* echo syntax */
+!     do_function(ch, &do_set, "");
+  }
+  
+  
+***************
+*** 3347,3353 ****
+  }
+  
+  
+- 
+  void do_mset( CHAR_DATA *ch, char *argument )
+  {
+      char arg1 [MAX_INPUT_LENGTH];
+--- 3321,3326 ----
+***************
+*** 3439,3445 ****
+  	if ( value < 3 || value > get_max_train(victim,STAT_DEX) )
+  	{
+  	    sprintf(buf,
+! 		"Dexterity ranges is 3 to %d.\n\r",
+  		get_max_train(victim,STAT_DEX));
+  	    send_to_char( buf, ch );
+  	    return;
+--- 3412,3418 ----
+  	if ( value < 3 || value > get_max_train(victim,STAT_DEX) )
+  	{
+  	    sprintf(buf,
+! 		"Dexterity range is 3 to %d.\n\r",
+  		get_max_train(victim,STAT_DEX));
+  	    send_to_char( buf, ch );
+  	    return;
+***************
+*** 3720,3726 ****
+      /*
+       * Generate usage message.
+       */
+!     do_mset( ch, "" );
+      return;
+  }
+  
+--- 3693,3699 ----
+      /*
+       * Generate usage message.
+       */
+!     do_function(ch, &do_mset, "" );
+      return;
+  }
+  
+***************
+*** 3883,3889 ****
+      
+      	
+      /* echo bad use message */
+!     do_string(ch,"");
+  }
+  
+  
+--- 3856,3862 ----
+      
+      	
+      /* echo bad use message */
+!     do_function(ch, &do_string, "");
+  }
+  
+  
+***************
+*** 3994,4000 ****
+      /*
+       * Generate usage message.
+       */
+!     do_oset( ch, "" );
+      return;
+  }
+  
+--- 3967,3973 ----
+      /*
+       * Generate usage message.
+       */
+!     do_function(ch, &do_oset, "" );
+      return;
+  }
+  
+***************
+*** 4063,4069 ****
+      /*
+       * Generate usage message.
+       */
+!     do_rset( ch, "" );
+      return;
+  }
+  
+--- 4036,4042 ----
+      /*
+       * Generate usage message.
+       */
+!     do_function(ch, &do_rset, "");
+      return;
+  }
+  
+diff -b -w -c -r Rom24old/src/alias.c Rom24/src/alias.c
+*** Rom24old/src/alias.c	Sat May 23 15:27:09 1998
+--- Rom24/src/alias.c	Sun May 24 23:04:43 1998
+***************
+*** 82,88 ****
+  		strcat(buf," ");
+  		strcat(buf,point);
+  
+! 	        if (strlen(buf) > MAX_INPUT_LENGTH)
+  	        {
+  		    send_to_char(
+  			"Alias substitution too long. Truncated.\r\n",ch);
+--- 82,88 ----
+  		strcat(buf," ");
+  		strcat(buf,point);
+  
+! 	        if (strlen(buf) > MAX_INPUT_LENGTH - 1)
+  	        {
+  		    send_to_char(
+  			"Alias substitution too long. Truncated.\r\n",ch);
+diff -b -w -c -r Rom24old/src/comm.c Rom24/src/comm.c
+*** Rom24old/src/comm.c	Sat May 23 15:27:12 1998
+--- Rom24/src/comm.c	Wed May 27 17:25:22 1998
+***************
+*** 58,73 ****
+  #include <time.h>
+  
+  #include "merc.h"
+  #include "recycle.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_help		);
+- DECLARE_DO_FUN(do_look		);
+- DECLARE_DO_FUN(do_skills	);
+- DECLARE_DO_FUN(do_outfit	);
+- DECLARE_DO_FUN(do_unread	);
+- 
+- 
+  /*
+   * Malloc debugging stuff.
+   */
+--- 58,67 ----
+  #include <time.h>
+  
+  #include "merc.h"
++ #include "interp.h"
+  #include "recycle.h"
++ #include "tables.h"
+  
+  /*
+   * Malloc debugging stuff.
+   */
+***************
+*** 167,182 ****
+  #if	defined(linux)
+  /* 
+      Linux shouldn't need these. If you have a problem compiling, try
+!     uncommenting accept and bind.
+  int	accept		args( ( int s, struct sockaddr *addr, int *addrlen ) );
+  int	bind		args( ( int s, struct sockaddr *name, int namelen ) );
+  */
+  
+  int	close		args( ( int fd ) );
+- int	getpeername	args( ( int s, struct sockaddr *name, int *namelen ) );
+- int	getsockname	args( ( int s, struct sockaddr *name, int *namelen ) );
+  int	gettimeofday	args( ( struct timeval *tp, struct timezone *tzp ) );
+- int	listen		args( ( int s, int backlog ) );
+  int	read		args( ( int fd, char *buf, int nbyte ) );
+  int	select		args( ( int width, fd_set *readfds, fd_set *writefds,
+  			    fd_set *exceptfds, struct timeval *timeout ) );
+--- 161,178 ----
+  #if	defined(linux)
+  /* 
+      Linux shouldn't need these. If you have a problem compiling, try
+!     uncommenting these functions.
+! */
+! /*
+  int	accept		args( ( int s, struct sockaddr *addr, int *addrlen ) );
+  int	bind		args( ( int s, struct sockaddr *name, int namelen ) );
++ int	getpeername	args( ( int s, struct sockaddr *name, int *namelen ) );
++ int	getsockname	args( ( int s, struct sockaddr *name, int *namelen ) );
++ int	listen		args( ( int s, int backlog ) );
+  */
+  
+  int	close		args( ( int fd ) );
+  int	gettimeofday	args( ( struct timeval *tp, struct timezone *tzp ) );
+  int	read		args( ( int fd, char *buf, int nbyte ) );
+  int	select		args( ( int width, fd_set *readfds, fd_set *writefds,
+  			    fd_set *exceptfds, struct timeval *timeout ) );
+***************
+*** 1674,1685 ****
+  
+  	if ( IS_IMMORTAL(ch) )
+  	{
+! 	    do_help( ch, "imotd" );
+  	    d->connected = CON_READ_IMOTD;
+   	}
+  	else
+  	{
+! 	    do_help( ch, "motd" );
+  	    d->connected = CON_READ_MOTD;
+  	}
+  	break;
+--- 1670,1681 ----
+  
+  	if ( IS_IMMORTAL(ch) )
+  	{
+! 	    do_function(ch, &do_help, "imotd" );
+  	    d->connected = CON_READ_IMOTD;
+   	}
+  	else
+  	{
+! 	    do_function(ch, &do_help, "motd" );
+  	    d->connected = CON_READ_MOTD;
+  	}
+  	break;
+***************
+*** 1817,1825 ****
+  	{
+  	    argument = one_argument(argument,arg);
+  	    if (argument[0] == '\0')
+! 		do_help(ch,"race help");
+  	    else
+! 		do_help(ch,argument);
+              write_to_buffer(d,
+  		"What is your race (help for more information)? ",0);
+  	    break;
+--- 1813,1821 ----
+  	{
+  	    argument = one_argument(argument,arg);
+  	    if (argument[0] == '\0')
+! 		do_function(ch, &do_help, "race help");
+  	    else
+! 		do_function(ch, &do_help, argument);
+              write_to_buffer(d,
+  		"What is your race (help for more information)? ",0);
+  	    break;
+***************
+*** 1950,1960 ****
+          case 'y': case 'Y': 
+  	    ch->gen_data = new_gen_data();
+  	    ch->gen_data->points_chosen = ch->pcdata->points;
+! 	    do_help(ch,"group header");
+  	    list_group_costs(ch);
+  	    write_to_buffer(d,"You already have the following skills:\n\r",0);
+! 	    do_skills(ch,"");
+! 	    do_help(ch,"menu choice");
+  	    d->connected = CON_GEN_GROUPS;
+  	    break;
+          case 'n': case 'N': 
+--- 1946,1956 ----
+          case 'y': case 'Y': 
+  	    ch->gen_data = new_gen_data();
+  	    ch->gen_data->points_chosen = ch->pcdata->points;
+! 	    do_function(ch, &do_help, "group header");
+  	    list_group_costs(ch);
+  	    write_to_buffer(d,"You already have the following skills:\n\r",0);
+! 	    do_function(ch, &do_skills, "");
+! 	    do_function(ch, &do_help, "menu choice");
+  	    d->connected = CON_GEN_GROUPS;
+  	    break;
+          case 'n': case 'N': 
+***************
+*** 2000,2006 ****
+  
+  	ch->pcdata->learned[*weapon_table[weapon].gsn] = 40;
+  	write_to_buffer(d,"\n\r",2);
+! 	do_help(ch,"motd");
+  	d->connected = CON_READ_MOTD;
+  	break;
+  
+--- 1996,2002 ----
+  
+  	ch->pcdata->learned[*weapon_table[weapon].gsn] = 40;
+  	write_to_buffer(d,"\n\r",2);
+! 	do_function(ch, &do_help, "motd");
+  	d->connected = CON_READ_MOTD;
+  	break;
+  
+***************
+*** 2054,2065 ****
+          "Choices are: list,learned,premise,add,drop,info,help, and done.\n\r"
+          ,ch);
+  
+!         do_help(ch,"menu choice");
+          break;
+  
+      case CON_READ_IMOTD:
+  	write_to_buffer(d,"\n\r",2);
+!         do_help( ch, "motd" );
+          d->connected = CON_READ_MOTD;
+  	break;
+  
+--- 2050,2061 ----
+          "Choices are: list,learned,premise,add,drop,info,help, and done.\n\r"
+          ,ch);
+  
+!         do_function(ch, &do_help, "menu choice");
+          break;
+  
+      case CON_READ_IMOTD:
+  	write_to_buffer(d,"\n\r",2);
+!         do_function(ch, &do_help, "motd");
+          d->connected = CON_READ_MOTD;
+  	break;
+  
+***************
+*** 2097,2108 ****
+  		[ch->sex == SEX_FEMALE ? 1 : 0] );
+  	    set_title( ch, buf );
+  
+! 	    do_outfit(ch,"");
+  	    obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP),0),ch);
+  
+  	    char_to_room( ch, get_room_index( ROOM_VNUM_SCHOOL ) );
+  	    send_to_char("\n\r",ch);
+! 	    do_help(ch,"NEWBIE INFO");
+  	    send_to_char("\n\r",ch);
+  	}
+  	else if ( ch->in_room != NULL )
+--- 2093,2104 ----
+  		[ch->sex == SEX_FEMALE ? 1 : 0] );
+  	    set_title( ch, buf );
+  
+! 	    do_function (ch, &do_outfit,"");
+  	    obj_to_char(create_object(get_obj_index(OBJ_VNUM_MAP),0),ch);
+  
+  	    char_to_room( ch, get_room_index( ROOM_VNUM_SCHOOL ) );
+  	    send_to_char("\n\r",ch);
+! 	    do_function(ch, &do_help, "newbie info");
+  	    send_to_char("\n\r",ch);
+  	}
+  	else if ( ch->in_room != NULL )
+***************
+*** 2119,2125 ****
+  	}
+  
+  	act( "$n has entered the game.", ch, NULL, NULL, TO_ROOM );
+! 	do_look( ch, "auto" );
+  
+  	wiznet("$N has left real life behind.",ch,NULL,
+  		WIZ_LOGINS,WIZ_SITES,get_trust(ch));
+--- 2115,2121 ----
+  	}
+  
+  	act( "$n has entered the game.", ch, NULL, NULL, TO_ROOM );
+! 	do_function(ch, &do_look, "auto" );
+  
+  	wiznet("$N has left real life behind.",ch,NULL,
+  		WIZ_LOGINS,WIZ_SITES,get_trust(ch));
+***************
+*** 2130,2136 ****
+  	    act("$n has entered the game.",ch->pet,NULL,NULL,TO_ROOM);
+  	}
+  
+! 	do_unread(ch,"");
+  	break;
+      }
+  
+--- 2126,2132 ----
+  	    act("$n has entered the game.",ch->pet,NULL,NULL,TO_ROOM);
+  	}
+  
+! 	do_function(ch, &do_unread, "");
+  	break;
+      }
+  
+***************
+*** 2144,2156 ****
+   */
+  bool check_parse_name( char *name )
+  {
+      /*
+       * Reserved words.
+       */
+!     if ( is_name( name, 
+! 	"all auto immortal self someone something the you demise balance circle loner honor") )
+  	return FALSE;
+  	
+      if (str_cmp(capitalize(name),"Alander") && (!str_prefix("Alan",name)
+      || !str_suffix("Alander",name)))
+  	return FALSE;
+--- 2140,2164 ----
+   */
+  bool check_parse_name( char *name )
+  {
++     int clan;
++ 
+      /*
+       * Reserved words.
+       */
+!     if (is_exact_name(name,
+! 	"all auto immortal self someone something the you loner"))
+!     {
+  	return FALSE;
++     }
+  
++     /* check clans */
++     for (clan = 0; clan < MAX_CLAN; clan++)
++     {
++ 	if (LOWER(name[0]) == LOWER(clan_table[clan].name[0])
++ 	&&  !str_cmp(name,clan_table[clan].name))
++ 	   return FALSE;
++     }
++ 	
+      if (str_cmp(capitalize(name),"Alander") && (!str_prefix("Alan",name)
+      || !str_suffix("Alander",name)))
+  	return FALSE;
+***************
+*** 2420,2432 ****
+      	ch->sex = IS_NPC(ch) ? 0 : ch->pcdata->true_sex;
+  }
+  
+- void act (const char *format, CHAR_DATA *ch, const void *arg1, const void *arg2,
+- 	  int type)
+- {
+-     /* to be compatible with older code */
+-     act_new(format,ch,arg1,arg2,type,POS_RESTING);
+- }
+- 
+  void act_new( const char *format, CHAR_DATA *ch, const void *arg1, 
+  	      const void *arg2, int type, int min_pos)
+  {
+--- 2428,2433 ----
+diff -b -w -c -r Rom24old/src/db.c Rom24/src/db.c
+*** Rom24old/src/db.c	Sat May 23 15:27:17 1998
+--- Rom24/src/db.c	Fri May 29 15:22:58 1998
+***************
+*** 50,56 ****
+--- 50,58 ----
+  #endif
+  
+  #if !defined(OLD_RAND)
++ #if !defined(linux)
+  long random();
++ #endif
+  void srandom(unsigned int);
+  int getpid();
+  time_t time(time_t *tloc);
+diff -b -w -c -r Rom24old/src/fight.c Rom24/src/fight.c
+*** Rom24old/src/fight.c	Sat May 23 15:27:33 1998
+--- Rom24/src/fight.c	Wed May 27 17:39:30 1998
+***************
+*** 34,56 ****
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_backstab	);
+- DECLARE_DO_FUN(do_emote		);
+- DECLARE_DO_FUN(do_berserk	);
+- DECLARE_DO_FUN(do_bash		);
+- DECLARE_DO_FUN(do_trip		);
+- DECLARE_DO_FUN(do_dirt		);
+- DECLARE_DO_FUN(do_flee		);
+- DECLARE_DO_FUN(do_kick		);
+- DECLARE_DO_FUN(do_disarm	);
+- DECLARE_DO_FUN(do_get		);
+- DECLARE_DO_FUN(do_recall	);
+- DECLARE_DO_FUN(do_yell		);
+- DECLARE_DO_FUN(do_sacrifice	);
+- 
+- 
+  /*
+   * Local functions.
+   */
+--- 34,41 ----
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 126,132 ****
+  	    && IS_SET(rch->off_flags,ASSIST_PLAYERS)
+  	    &&  rch->level + 6 > victim->level)
+  	    {
+! 		do_emote(rch,"screams and attacks!");
+  		multi_hit(rch,victim,TYPE_UNDEFINED);
+  		continue;
+  	    }
+--- 111,117 ----
+  	    && IS_SET(rch->off_flags,ASSIST_PLAYERS)
+  	    &&  rch->level + 6 > victim->level)
+  	    {
+! 		do_function(rch, &do_emote, "screams and attacks!");
+  		multi_hit(rch,victim,TYPE_UNDEFINED);
+  		continue;
+  	    }
+***************
+*** 186,192 ****
+  
+  		    if (target != NULL)
+  		    {
+! 			do_emote(rch,"screams and attacks!");
+  			multi_hit(rch,target,TYPE_UNDEFINED);
+  		    }
+  		}	
+--- 171,177 ----
+  
+  		    if (target != NULL)
+  		    {
+! 			do_function(rch, &do_emote, "screams and attacks!");
+  			multi_hit(rch,target,TYPE_UNDEFINED);
+  		    }
+  		}	
+***************
+*** 340,351 ****
+      {
+      case (0) :
+  	if (IS_SET(ch->off_flags,OFF_BASH))
+! 	    do_bash(ch,"");
+  	break;
+  
+      case (1) :
+  	if (IS_SET(ch->off_flags,OFF_BERSERK) && !IS_AFFECTED(ch,AFF_BERSERK))
+! 	    do_berserk(ch,"");
+  	break;
+  
+  
+--- 325,336 ----
+      {
+      case (0) :
+  	if (IS_SET(ch->off_flags,OFF_BASH))
+! 	    do_function(ch, &do_bash, "");
+  	break;
+  
+      case (1) :
+  	if (IS_SET(ch->off_flags,OFF_BERSERK) && !IS_AFFECTED(ch,AFF_BERSERK))
+! 	    do_function(ch, &do_berserk, "");
+  	break;
+  
+  
+***************
+*** 354,394 ****
+  	|| (get_weapon_sn(ch) != gsn_hand_to_hand 
+  	&& (IS_SET(ch->act,ACT_WARRIOR)
+     	||  IS_SET(ch->act,ACT_THIEF))))
+! 	    do_disarm(ch,"");
+  	break;
+  
+      case (3) :
+  	if (IS_SET(ch->off_flags,OFF_KICK))
+! 	    do_kick(ch,"");
+  	break;
+  
+      case (4) :
+  	if (IS_SET(ch->off_flags,OFF_KICK_DIRT))
+! 	    do_dirt(ch,"");
+  	break;
+  
+      case (5) :
+  	if (IS_SET(ch->off_flags,OFF_TAIL))
+  	{
+! 	    /* do_tail(ch,"") */ ;
+  	}
+  	break; 
+  
+      case (6) :
+  	if (IS_SET(ch->off_flags,OFF_TRIP))
+! 	    do_trip(ch,"");
+  	break;
+  
+      case (7) :
+  	if (IS_SET(ch->off_flags,OFF_CRUSH))
+  	{
+! 	    /* do_crush(ch,"") */ ;
+  	}
+  	break;
+      case (8) :
+  	if (IS_SET(ch->off_flags,OFF_BACKSTAB))
+  	{
+! 	    do_backstab(ch,"");
+  	}
+      }
+  }
+--- 339,379 ----
+  	|| (get_weapon_sn(ch) != gsn_hand_to_hand 
+  	&& (IS_SET(ch->act,ACT_WARRIOR)
+     	||  IS_SET(ch->act,ACT_THIEF))))
+! 	    do_function(ch, &do_disarm, "");
+  	break;
+  
+      case (3) :
+  	if (IS_SET(ch->off_flags,OFF_KICK))
+! 	    do_function(ch, &do_kick, "");
+  	break;
+  
+      case (4) :
+  	if (IS_SET(ch->off_flags,OFF_KICK_DIRT))
+! 	    do_function(ch, &do_dirt, "");
+  	break;
+  
+      case (5) :
+  	if (IS_SET(ch->off_flags,OFF_TAIL))
+  	{
+! 	    /* do_function(ch, &do_tail, "") */ ;
+  	}
+  	break; 
+  
+      case (6) :
+  	if (IS_SET(ch->off_flags,OFF_TRIP))
+! 	    do_function(ch, &do_trip, "");
+  	break;
+  
+      case (7) :
+  	if (IS_SET(ch->off_flags,OFF_CRUSH))
+  	{
+! 	    /* do_function(ch, &do_crush, "") */ ;
+  	}
+  	break;
+      case (8) :
+  	if (IS_SET(ch->off_flags,OFF_BACKSTAB))
+  	{
+! 	    do_function(ch, &do_backstab, "");
+  	}
+      }
+  }
+***************
+*** 646,652 ****
+  	    act("$p draws life from $n.",victim,wield,NULL,TO_ROOM);
+  	    act("You feel $p drawing your life away.",
+  		victim,wield,NULL,TO_CHAR);
+! 	    damage_old(ch,victim,dam,0,DAM_NEGATIVE,FALSE);
+  	    ch->alignment = UMAX(-1000,ch->alignment - 1);
+  	    ch->hit += dam/2;
+  	}
+--- 631,637 ----
+  	    act("$p draws life from $n.",victim,wield,NULL,TO_ROOM);
+  	    act("You feel $p drawing your life away.",
+  		victim,wield,NULL,TO_CHAR);
+! 	    damage(ch,victim,dam,0,DAM_NEGATIVE,FALSE);
+  	    ch->alignment = UMAX(-1000,ch->alignment - 1);
+  	    ch->hit += dam/2;
+  	}
+***************
+*** 690,696 ****
+  bool damage(CHAR_DATA *ch,CHAR_DATA *victim,int dam,int dt,int dam_type,
+  	    bool show) 
+  {
+- 
+      OBJ_DATA *corpse;
+      bool immune;
+  
+--- 675,680 ----
+***************
+*** 747,770 ****
+  	{
+  	    if ( ch->fighting == NULL )
+  		set_fighting( ch, victim );
+- 
+- 	    /*
+- 	     * If victim is charmed, ch might attack victim's master.
+- 	     taken out by Russ! */
+- /*
+- 	    if ( IS_NPC(ch)
+- 	    &&   IS_NPC(victim)
+- 	    &&   IS_AFFECTED(victim, AFF_CHARM)
+- 	    &&   victim->master != NULL
+- 	    &&   victim->master->in_room == ch->in_room
+- 	    &&   number_bits( 3 ) == 0 )
+- 	    {
+- 		stop_fighting( ch, FALSE );
+- 		multi_hit( ch, victim->master, TYPE_UNDEFINED );
+- 		return FALSE;
+  	    }
+- */
+- 	}
+  
+  	/*
+  	 * More charm stuff.
+--- 731,737 ----
+***************
+*** 948,1285 ****
+  
+  	    if ( IS_SET(ch->act, PLR_AUTOLOOT) &&
+  		 corpse && corpse->contains) /* exists and not empty */
+! 		do_get( ch, "all corpse" );
+  
+   	    if (IS_SET(ch->act,PLR_AUTOGOLD) &&
+  	        corpse && corpse->contains  && /* exists and not empty */
+  		!IS_SET(ch->act,PLR_AUTOLOOT))
+  		if ((coins = get_obj_list(ch,"gcash",corpse->contains))
+  		     != NULL)
+- 	      	    do_get(ch, "all.gcash corpse");
+-             
+- 	    if ( IS_SET(ch->act, PLR_AUTOSAC) )
+-        	      if ( IS_SET(ch->act,PLR_AUTOLOOT) && corpse && corpse->contains)
+- 		return TRUE;  /* leave if corpse has treasure */
+- 	      else
+- 		do_sacrifice( ch, "corpse" );
+- 	}
+- 
+- 	return TRUE;
+-     }
+- 
+-     if ( victim == ch )
+- 	return TRUE;
+- 
+-     /*
+-      * Take care of link dead people.
+-      */
+-     if ( !IS_NPC(victim) && victim->desc == NULL )
+      {
+! 	if ( number_range( 0, victim->wait ) == 0 )
+! 	{
+! 	    do_recall( victim, "" );
+! 	    return TRUE;
+  	}
+      }
+  
+!     /*
+!      * Wimp out?
+!      */
+!     if ( IS_NPC(victim) && dam > 0 && victim->wait < PULSE_VIOLENCE / 2)
+      {
+! 	if ( ( IS_SET(victim->act, ACT_WIMPY) && number_bits( 2 ) == 0
+! 	&&   victim->hit < victim->max_hit / 5) 
+! 	||   ( IS_AFFECTED(victim, AFF_CHARM) && victim->master != NULL
+! 	&&     victim->master->in_room != victim->in_room ) )
+! 	    do_flee( victim, "" );
+!     }
+! 
+!     if ( !IS_NPC(victim)
+!     &&   victim->hit > 0
+!     &&   victim->hit <= victim->wimpy
+!     &&   victim->wait < PULSE_VIOLENCE / 2 )
+! 	do_flee( victim, "" );
+! 
+!     tail_chain( );
+!     return TRUE;
+! }
+! 
+! 
+! 
+! 
+! 
+! 
+! /*
+!  * Inflict damage from a hit.
+!  */
+! bool damage_old( CHAR_DATA *ch, CHAR_DATA *victim, int dam, int dt, int 
+! dam_type, bool show ) {
+! 
+!     OBJ_DATA *corpse;
+!     bool immune;
+! 
+!     if ( victim->position == POS_DEAD )
+! 	return FALSE;
+! 
+!     /*
+!      * Stop up any residual loopholes.
+!      */
+! 
+!     if ( dam > 1200 && dt >= TYPE_HIT)
+      {
+!         bug( "Damage: %d: more than 1200 points!", dam );
+!         dam = 1200;
+!         if (!IS_IMMORTAL(ch))
+!         {
+!             OBJ_DATA *obj;
+!             obj = get_eq_char( ch, WEAR_WIELD );
+!             send_to_char("You really shouldn't cheat.\n\r",ch);
+!             if (obj != NULL)
+!                 extract_obj(obj);
+          }
+!  
+!     }
+! 
+!     
+!     /* damage reduction */
+!     if ( dam > 35)
+! 	dam = (dam - 35)/2 + 35;
+!     if ( dam > 80)
+! 	dam = (dam - 80)/2 + 80; 
+! 
+! 
+! 
+!    
+!     if ( victim != ch )
+      {
+! 	/*
+! 	 * Certain attacks are forbidden.
+! 	 * Most other attacks are returned.
+! 	 */
+! 	if ( is_safe( ch, victim ) )
+! 	    return FALSE;
+! 	check_killer( ch, victim );
+! 
+! 	if ( victim->position > POS_STUNNED )
+! 	{
+! 	    if ( victim->fighting == NULL )
+! 		set_fighting( victim, ch );
+! 	    if (victim->timer <= 4)
+! 	    	victim->position = POS_FIGHTING;
+  	}
+- 
+- 	if ( victim->position > POS_STUNNED )
+- 	{
+- 	    if ( ch->fighting == NULL )
+- 		set_fighting( ch, victim );
+- 
+- 	    /*
+- 	     * If victim is charmed, ch might attack victim's master.
+- 	     */
+- 	    if ( IS_NPC(ch)
+- 	    &&   IS_NPC(victim)
+- 	    &&   IS_AFFECTED(victim, AFF_CHARM)
+- 	    &&   victim->master != NULL
+- 	    &&   victim->master->in_room == ch->in_room
+- 	    &&   number_bits( 3 ) == 0 )
+- 	    {
+- 		stop_fighting( ch, FALSE );
+- 		multi_hit( ch, victim->master, TYPE_UNDEFINED );
+- 		return FALSE;
+  	    }
+  	}
+  
+- 	/*
+- 	 * More charm stuff.
+- 	 */
+- 	if ( victim->master == ch )
+- 	    stop_follower( victim );
+-     }
+- 
+-     /*
+-      * Inviso attacks ... not.
+-      */
+-     if ( IS_AFFECTED(ch, AFF_INVISIBLE) )
+-     {
+- 	affect_strip( ch, gsn_invis );
+- 	affect_strip( ch, gsn_mass_invis );
+- 	REMOVE_BIT( ch->affected_by, AFF_INVISIBLE );
+- 	act( "$n fades into existence.", ch, NULL, NULL, TO_ROOM );
+-     }
+- 
+-     /*
+-      * Damage modifiers.
+-      */
+- 
+-     if ( dam > 1 && !IS_NPC(victim)
+-     &&   victim->pcdata->condition[COND_DRUNK]  > 10 )
+-         dam = 9 * dam / 10;
+-  
+-     if ( dam > 1 && IS_AFFECTED(victim, AFF_SANCTUARY) )
+-         dam /= 2;
+-  
+-     if ( dam > 1 && ((IS_AFFECTED(victim, AFF_PROTECT_EVIL) && IS_EVIL(ch) )
+-     ||               (IS_AFFECTED(victim, AFF_PROTECT_GOOD) && IS_GOOD(ch) )))
+-         dam -= dam / 4;
+- 
+-     immune = FALSE;
+- 
+- 
+-     /*
+-      * Check for parry, and dodge.
+-      */
+-     if ( dt >= TYPE_HIT && ch != victim)
+-     {
+-         if ( check_parry( ch, victim ) )
+- 	    return FALSE;
+- 	if ( check_dodge( ch, victim ) )
+- 	    return FALSE;
+- 	if ( check_shield_block(ch,victim))
+- 	    return FALSE;
+- 
+-     }
+- 
+-     switch(check_immune(victim,dam_type))
+-     {
+- 	case(IS_IMMUNE):
+- 	    immune = TRUE;
+- 	    dam = 0;
+- 	    break;
+- 	case(IS_RESISTANT):	
+- 	    dam -= dam/3;
+- 	    break;
+- 	case(IS_VULNERABLE):
+- 	    dam += dam/2;
+- 	    break;
+-     }
+- 
+-     if (show)
+-     	dam_message( ch, victim, dam, dt, immune );
+- 
+-     if (dam == 0)
+- 	return FALSE;
+- 
+-     /*
+-      * Hurt the victim.
+-      * Inform the victim of his new state.
+-      */
+-     victim->hit -= dam;
+-     if ( !IS_NPC(victim)
+-     &&   victim->level >= LEVEL_IMMORTAL
+-     &&   victim->hit < 1 )
+- 	victim->hit = 1;
+-     update_pos( victim );
+- 
+-     switch( victim->position )
+-     {
+-     case POS_MORTAL:
+- 	act( "$n is mortally wounded, and will die soon, if not aided.",
+- 	    victim, NULL, NULL, TO_ROOM );
+- 	send_to_char( 
+- 	    "You are mortally wounded, and will die soon, if not aided.\n\r",
+- 	    victim );
+- 	break;
+- 
+-     case POS_INCAP:
+- 	act( "$n is incapacitated and will slowly die, if not aided.",
+- 	    victim, NULL, NULL, TO_ROOM );
+- 	send_to_char(
+- 	    "You are incapacitated and will slowly die, if not aided.\n\r",
+- 	    victim );
+- 	break;
+- 
+-     case POS_STUNNED:
+- 	act( "$n is stunned, but will probably recover.",
+- 	    victim, NULL, NULL, TO_ROOM );
+- 	send_to_char("You are stunned, but will probably recover.\n\r",
+- 	    victim );
+- 	break;
+- 
+-     case POS_DEAD:
+- 	act( "$n is DEAD!!", victim, 0, 0, TO_ROOM );
+- 	send_to_char( "You have been KILLED!!\n\r\n\r", victim );
+- 	break;
+- 
+-     default:
+- 	if ( dam > victim->max_hit / 4 )
+- 	    send_to_char( "That really did HURT!\n\r", victim );
+- 	if ( victim->hit < victim->max_hit / 4 )
+- 	    send_to_char( "You sure are BLEEDING!\n\r", victim );
+- 	break;
+-     }
+- 
+-     /*
+-      * Sleep spells and extremely wounded folks.
+-      */
+-     if ( !IS_AWAKE(victim) )
+- 	stop_fighting( victim, FALSE );
+- 
+-     /*
+-      * Payoff for killing things.
+-      */
+-     if ( victim->position == POS_DEAD )
+-     {
+- 	group_gain( ch, victim );
+- 
+- 	if ( !IS_NPC(victim) )
+- 	{
+- 	    sprintf( log_buf, "%s killed by %s at %d",
+- 		victim->name,
+- 		(IS_NPC(ch) ? ch->short_descr : ch->name),
+- 		victim->in_room->vnum );
+- 	    log_string( log_buf );
+- 
+- 	    /*
+- 	     * Dying penalty:
+- 	     * 2/3 way back to previous level.
+- 	     */
+- 	    if ( victim->exp > exp_per_level(victim,victim->pcdata->points) 
+- 			       * victim->level )
+- 	gain_exp( victim, (2 * (exp_per_level(victim,victim->pcdata->points)
+- 			         * victim->level - victim->exp)/3) + 50 );
+- 	}
+- 
+-         sprintf( log_buf, "%s got toasted by %s at %s [room %d]",
+-             (IS_NPC(victim) ? victim->short_descr : victim->name),
+-             (IS_NPC(ch) ? ch->short_descr : ch->name),
+-             ch->in_room->name, ch->in_room->vnum);
+-  
+-         if (IS_NPC(victim))
+-             wiznet(log_buf,NULL,NULL,WIZ_MOBDEATHS,0,0);
+-         else
+-             wiznet(log_buf,NULL,NULL,WIZ_DEATHS,0,0);
+- 
+- 	raw_kill( victim );
+- 	/* dump the flags */
+- 	if (ch != victim && !IS_NPC(ch) && !is_same_clan(ch,victim))
+- 	{
+- 	    if (IS_SET(victim->act,PLR_KILLER))
+- 	    	REMOVE_BIT(victim->act,PLR_KILLER);
+- 	    else
+- 		REMOVE_BIT(victim->act,PLR_THIEF);
+- 	}
+-         /* RT new auto commands */
+- 
+- 	if ( !IS_NPC(ch) && IS_NPC(victim) )
+- 	{
+- 	    corpse = get_obj_list( ch, "corpse", ch->in_room->contents ); 
+- 
+- 	    if ( IS_SET(ch->act, PLR_AUTOLOOT) &&
+- 		 corpse && corpse->contains) /* exists and not empty */
+- 		do_get( ch, "all corpse" );
+- 
+-  	    if (IS_SET(ch->act,PLR_AUTOGOLD) &&
+- 	        corpse && corpse->contains  && /* exists and not empty */
+- 		!IS_SET(ch->act,PLR_AUTOLOOT))
+- 	      do_get(ch, "gold corpse");
+-             
+- 	    if ( IS_SET(ch->act, PLR_AUTOSAC) )
+-        	      if ( IS_SET(ch->act,PLR_AUTOLOOT) && corpse && corpse->contains)
+- 		return TRUE;  /* leave if corpse has treasure */
+- 	      else
+- 		do_sacrifice( ch, "corpse" );
+- 	}
+- 
+  	return TRUE;
+      }
+  
+--- 915,948 ----
+  
+  	    if ( IS_SET(ch->act, PLR_AUTOLOOT) &&
+  		 corpse && corpse->contains) /* exists and not empty */
+!             {
+! 		do_function(ch, &do_get, "all corpse");
+! 	    }
+  
+   	    if (IS_SET(ch->act,PLR_AUTOGOLD) &&
+  	        corpse && corpse->contains  && /* exists and not empty */
+  		!IS_SET(ch->act,PLR_AUTOLOOT))
++ 	    {
+  		if ((coins = get_obj_list(ch,"gcash",corpse->contains))
+  		     != NULL)
+  		{
+! 		    do_function(ch, &do_get, "all.gcash corpse");
+  	      	}
+  	    }
+              
+! 	    if (IS_SET(ch->act, PLR_AUTOSAC))
+  	    {
+!        	        if (IS_SET(ch->act,PLR_AUTOLOOT) && corpse && corpse->contains)
+         	      	{
+! 		    return TRUE;  /* leave if corpse has treasure */
+  	      	}
+! 	        else
+  		{
+! 		    do_function(ch, &do_sacrifice, "corpse");
+  		}
+  	    }
+  	}
+  
+  	return TRUE;
+      }
+  
+***************
+*** 1293,1299 ****
+      {
+  	if ( number_range( 0, victim->wait ) == 0 )
+  	{
+! 	    do_recall( victim, "" );
+  	    return TRUE;
+  	}
+      }
+--- 956,962 ----
+      {
+  	if ( number_range( 0, victim->wait ) == 0 )
+  	{
+! 	    do_function(victim, &do_recall, "" );
+  	    return TRUE;
+  	}
+      }
+***************
+*** 1307,1320 ****
+  	&&   victim->hit < victim->max_hit / 5) 
+  	||   ( IS_AFFECTED(victim, AFF_CHARM) && victim->master != NULL
+  	&&     victim->master->in_room != victim->in_room ) )
+! 	    do_flee( victim, "" );
+      }
+  
+      if ( !IS_NPC(victim)
+      &&   victim->hit > 0
+      &&   victim->hit <= victim->wimpy
+      &&   victim->wait < PULSE_VIOLENCE / 2 )
+! 	do_flee( victim, "" );
+  
+      tail_chain( );
+      return TRUE;
+--- 970,987 ----
+  	&&   victim->hit < victim->max_hit / 5) 
+  	||   ( IS_AFFECTED(victim, AFF_CHARM) && victim->master != NULL
+  	&&     victim->master->in_room != victim->in_room ) )
+! 	{
+! 	    do_function(victim, &do_flee, "" );
+  	}
++     }
+  
+      if ( !IS_NPC(victim)
+      &&   victim->hit > 0
+      &&   victim->hit <= victim->wimpy
+      &&   victim->wait < PULSE_VIOLENCE / 2 )
+!     {
+! 	do_function (victim, &do_flee, "" );
+!     }
+  
+      tail_chain( );
+      return TRUE;
+***************
+*** 3049,3055 ****
+  	sprintf(buf, "Help! I am being attacked by %s!",ch->short_descr);
+      else
+      	sprintf( buf, "Help!  I am being attacked by %s!", ch->name );
+!     do_yell( victim, buf );
+      check_killer( ch, victim );
+      multi_hit( ch, victim, TYPE_UNDEFINED );
+      return;
+--- 2716,2722 ----
+  	sprintf(buf, "Help! I am being attacked by %s!",ch->short_descr);
+      else
+      	sprintf( buf, "Help!  I am being attacked by %s!", ch->name );
+!     do_function(victim, &do_yell, buf );
+      check_killer( ch, victim );
+      multi_hit( ch, victim, TYPE_UNDEFINED );
+      return;
+diff -b -w -c -r Rom24old/src/handler.c Rom24/src/handler.c
+*** Rom24old/src/handler.c	Sat May 23 15:27:39 1998
+--- Rom24/src/handler.c	Wed May 27 17:30:47 1998
+***************
+*** 35,49 ****
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "magic.h"
+  #include "recycle.h"
+  #include "tables.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_return	);
+- 
+- 
+- 
+  /*
+   * Local functions.
+   */
+--- 35,45 ----
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "magic.h"
+  #include "recycle.h"
+  #include "tables.h"
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 1109,1114 ****
+--- 1105,1111 ----
+  
+      *paf_new		= *paf;
+  
++     VALIDATE(paf);	/* in case we missed it when we set up paf */
+      paf_new->next	= ch->affected;
+      ch->affected	= paf_new;
+  
+***************
+*** 1124,1129 ****
+--- 1121,1128 ----
+      paf_new = new_affect();
+  
+      *paf_new		= *paf;
++ 
++     VALIDATE(paf);	/* in case we missed it when we set up paf */
+      paf_new->next	= obj->affected;
+      obj->affected	= paf_new;
+  
+***************
+*** 1965,1971 ****
+  
+      if ( ch->desc != NULL && ch->desc->original != NULL )
+      {
+! 	do_return( ch, "" );
+  	ch->desc = NULL;
+      }
+  
+--- 1964,1970 ----
+  
+      if ( ch->desc != NULL && ch->desc->original != NULL )
+      {
+! 	do_function(ch, &do_return, "" );
+  	ch->desc = NULL;
+      }
+  
+diff -b -w -c -r Rom24old/src/healer.c Rom24/src/healer.c
+*** Rom24old/src/healer.c	Sat May 23 15:27:39 1998
+--- Rom24/src/healer.c	Wed May 27 15:59:08 1998
+***************
+*** 177,183 ****
+      WAIT_STATE(ch,PULSE_VIOLENCE);
+  
+      deduct_cost(ch,cost);
+!     mob->gold += cost;
+      act("$n utters the words '$T'.",mob,NULL,words,TO_ROOM);
+    
+      if (spell == NULL)  /* restore mana trap...kinda hackish */
+--- 177,184 ----
+      WAIT_STATE(ch,PULSE_VIOLENCE);
+  
+      deduct_cost(ch,cost);
+!     mob->gold += cost / 100;
+!     mob->silver += cost % 100;
+      act("$n utters the words '$T'.",mob,NULL,words,TO_ROOM);
+    
+      if (spell == NULL)  /* restore mana trap...kinda hackish */
+diff -b -w -c -r Rom24old/src/interp.c Rom24/src/interp.c
+*** Rom24old/src/interp.c	Sat May 23 15:27:40 1998
+--- Rom24/src/interp.c	Mon May 25 00:12:59 1998
+***************
+*** 42,49 ****
+  bool	check_social	args( ( CHAR_DATA *ch, char *command,
+  			    char *argument ) );
+  
+- 
+- 
+  /*
+   * Command logging types.
+   */
+--- 42,47 ----
+***************
+*** 512,519 ****
+--- 510,530 ----
+      return;
+  }
+  
++ /* function to keep argument safe in all commands -- no static strings */
++ void do_function (CHAR_DATA *ch, DO_FUN *do_fun, char *argument)
++ {
++     char *command_string;
+      
++     /* copy the string */
++     command_string = str_dup(argument);
+      
++     /* dispatch the command */
++     (*do_fun) (ch, command_string);
++     
++     /* free the string */
++     free_string(command_string);
++ }
++     
+  bool check_social( CHAR_DATA *ch, char *command, char *argument )
+  {
+      char arg[MAX_INPUT_LENGTH];
+diff -b -w -c -r Rom24old/src/interp.h Rom24/src/interp.h
+*** Rom24old/src/interp.h	Sat May 23 15:27:41 1998
+--- Rom24/src/interp.h	Wed May 27 17:44:20 1998
+***************
+*** 27,32 ****
+--- 27,35 ----
+  
+  /* this is a listing of all the commands and command related data */
+  
++ /* wrapper function for safe command execution */
++ void do_function args((CHAR_DATA *ch, DO_FUN *do_fun, char *argument));
++ 
+  /* for command types */
+  #define ML 	MAX_LEVEL	/* implementor */
+  #define L1	MAX_LEVEL - 1  	/* creator */
+***************
+*** 231,236 ****
+--- 234,240 ----
+  DECLARE_DO_FUN(	do_sacrifice	);
+  DECLARE_DO_FUN(	do_save		);
+  DECLARE_DO_FUN(	do_say		);
++ DECLARE_DO_FUN(	do_scan		);
+  DECLARE_DO_FUN(	do_score	);
+  DECLARE_DO_FUN( do_scroll	);
+  DECLARE_DO_FUN(	do_sell		);
+diff -b -w -c -r Rom24old/src/magic.c Rom24/src/magic.c
+*** Rom24old/src/magic.c	Sat May 23 15:27:47 1998
+--- Rom24/src/magic.c	Wed May 27 17:43:28 1998
+***************
+*** 35,46 ****
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "magic.h"
+  #include "recycle.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_look		);
+- 
+  /*
+   * Local functions.
+   */
+--- 35,44 ----
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "magic.h"
+  #include "recycle.h"
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 731,737 ****
+      dam = dice( level, 12 );
+      if ( saves_spell( level, victim, DAM_ACID ) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn,DAM_ACID,TRUE);
+      return;
+  }
+  
+--- 729,735 ----
+      dam = dice( level, 12 );
+      if ( saves_spell( level, victim, DAM_ACID ) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_ACID, TRUE);
+      return;
+  }
+  
+***************
+*** 895,901 ****
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_FIRE) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_FIRE,TRUE);
+      return;
+  }
+  
+--- 893,899 ----
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_FIRE) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_FIRE,TRUE);
+      return;
+  }
+  
+***************
+*** 933,939 ****
+  	if ( vch->in_room == ch->in_room )
+  	{
+  	    if ( vch != ch && ( IS_NPC(ch) ? !IS_NPC(vch) : IS_NPC(vch) ) )
+! 		damage_old( ch, vch, saves_spell( level,vch,DAM_LIGHTNING) 
+  		? dam / 2 : dam, sn,DAM_LIGHTNING,TRUE);
+  	    continue;
+  	}
+--- 931,937 ----
+  	if ( vch->in_room == ch->in_room )
+  	{
+  	    if ( vch != ch && ( IS_NPC(ch) ? !IS_NPC(vch) : IS_NPC(vch) ) )
+! 		damage( ch, vch, saves_spell( level,vch,DAM_LIGHTNING) 
+  		? dam / 2 : dam, sn,DAM_LIGHTNING,TRUE);
+  	    continue;
+  	}
+***************
+*** 1183,1189 ****
+  
+  void spell_cause_light( int sn, int level, CHAR_DATA *ch, void *vo,int target )
+  {
+!     damage_old( ch, (CHAR_DATA *) vo, dice(1, 8) + level / 3, sn,DAM_HARM,TRUE);
+      return;
+  }
+  
+--- 1181,1187 ----
+  
+  void spell_cause_light( int sn, int level, CHAR_DATA *ch, void *vo,int target )
+  {
+!     damage( ch, (CHAR_DATA *) vo, dice(1, 8) + level / 3, sn,DAM_HARM,TRUE);
+      return;
+  }
+  
+***************
+*** 1191,1197 ****
+  
+  void spell_cause_critical(int sn,int level,CHAR_DATA *ch,void *vo,int target)
+  {
+!     damage_old( ch, (CHAR_DATA *) vo, dice(3, 8) + level - 6, sn,DAM_HARM,TRUE);
+      return;
+  }
+  
+--- 1189,1195 ----
+  
+  void spell_cause_critical(int sn,int level,CHAR_DATA *ch,void *vo,int target)
+  {
+!     damage( ch, (CHAR_DATA *) vo, dice(3, 8) + level - 6, sn,DAM_HARM,TRUE);
+      return;
+  }
+  
+***************
+*** 1199,1205 ****
+  
+  void spell_cause_serious(int sn,int level,CHAR_DATA *ch,void *vo,int target)
+  {
+!     damage_old( ch, (CHAR_DATA *) vo, dice(2, 8) + level / 2, sn,DAM_HARM,TRUE);
+      return;
+  }
+  
+--- 1197,1203 ----
+  
+  void spell_cause_serious(int sn,int level,CHAR_DATA *ch,void *vo,int target)
+  {
+!     damage( ch, (CHAR_DATA *) vo, dice(2, 8) + level / 2, sn,DAM_HARM,TRUE);
+      return;
+  }
+  
+***************
+*** 1222,1228 ****
+      dam = dice(level,6);
+      if (saves_spell(level,victim,DAM_LIGHTNING))
+   	dam /= 3;
+!     damage_old(ch,victim,dam,sn,DAM_LIGHTNING,TRUE);
+      last_vict = victim;
+      level -= 4;   /* decrement damage */
+  
+--- 1220,1226 ----
+      dam = dice(level,6);
+      if (saves_spell(level,victim,DAM_LIGHTNING))
+   	dam /= 3;
+!     damage(ch,victim,dam,sn,DAM_LIGHTNING,TRUE);
+      last_vict = victim;
+      level -= 4;   /* decrement damage */
+  
+***************
+*** 1244,1250 ****
+  	    dam = dice(level,6);
+  	    if (saves_spell(level,tmp_vict,DAM_LIGHTNING))
+  		dam /= 3;
+! 	    damage_old(ch,tmp_vict,dam,sn,DAM_LIGHTNING,TRUE);
+  	    level -= 4;  /* decrement damage */
+  	  }
+  	}   /* end target searching loop */
+--- 1242,1248 ----
+  	    dam = dice(level,6);
+  	    if (saves_spell(level,tmp_vict,DAM_LIGHTNING))
+  		dam /= 3;
+! 	    damage(ch,tmp_vict,dam,sn,DAM_LIGHTNING,TRUE);
+  	    level -= 4;  /* decrement damage */
+  	  }
+  	}   /* end target searching loop */
+***************
+*** 1268,1274 ****
+  	  dam = dice(level,6);
+  	  if (saves_spell(level,ch,DAM_LIGHTNING))
+  	    dam /= 3;
+! 	  damage_old(ch,ch,dam,sn,DAM_LIGHTNING,TRUE);
+  	  level -= 4;  /* decrement damage */
+  	  if (ch == NULL) 
+  	    return;
+--- 1266,1272 ----
+  	  dam = dice(level,6);
+  	  if (saves_spell(level,ch,DAM_LIGHTNING))
+  	    dam /= 3;
+! 	  damage(ch,ch,dam,sn,DAM_LIGHTNING,TRUE);
+  	  level -= 4;  /* decrement damage */
+  	  if (ch == NULL) 
+  	    return;
+***************
+*** 1395,1401 ****
+  	dam /= 2;
+      }
+  
+!     damage_old( ch, victim, dam, sn, DAM_COLD,TRUE );
+      return;
+  }
+  
+--- 1393,1399 ----
+  	dam /= 2;
+      }
+  
+!     damage( ch, victim, dam, sn, DAM_COLD,TRUE );
+      return;
+  }
+  
+***************
+*** 1424,1430 ****
+  	spell_blindness(skill_lookup("blindness"),
+  	    level/2,ch,(void *) victim,TARGET_CHAR);
+  
+!     damage_old( ch, victim, dam, sn, DAM_LIGHT,TRUE );
+      return;
+  }
+  
+--- 1422,1428 ----
+  	spell_blindness(skill_lookup("blindness"),
+  	    level/2,ch,(void *) victim,TARGET_CHAR);
+  
+!     damage( ch, victim, dam, sn, DAM_LIGHT,TRUE );
+      return;
+  }
+  
+***************
+*** 1778,1784 ****
+      dam = dice( level, 10 );
+      if ( saves_spell( level, victim,DAM_NEGATIVE) )
+          dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_NEGATIVE ,TRUE);
+      spell_curse(gsn_curse, 3 * level / 4, ch, (void *) victim,TARGET_CHAR);
+  }
+  
+--- 1776,1782 ----
+      dam = dice( level, 10 );
+      if ( saves_spell( level, victim,DAM_NEGATIVE) )
+          dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_NEGATIVE ,TRUE);
+      spell_curse(gsn_curse, 3 * level / 4, ch, (void *) victim,TARGET_CHAR);
+  }
+  
+***************
+*** 1975,1981 ****
+        dam = UMAX(victim->hit, dice(level,4));
+      if ( saves_spell( level, victim,DAM_HOLY) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_HOLY ,TRUE);
+      return;
+  }
+  
+--- 1973,1979 ----
+        dam = UMAX(victim->hit, dice(level,4));
+      if ( saves_spell( level, victim,DAM_HOLY) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_HOLY ,TRUE);
+      return;
+  }
+  
+***************
+*** 2006,2012 ****
+        dam = UMAX(victim->hit, dice(level,4));
+      if ( saves_spell( level, victim,DAM_NEGATIVE) )
+          dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_NEGATIVE ,TRUE);
+      return;
+  }
+  
+--- 2004,2010 ----
+        dam = UMAX(victim->hit, dice(level,4));
+      if ( saves_spell( level, victim,DAM_NEGATIVE) )
+          dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_NEGATIVE ,TRUE);
+      return;
+  }
+  
+***************
+*** 2204,2212 ****
+  	{
+  	    if ( vch != ch && !is_safe_spell(ch,vch,TRUE))
+  		if (IS_AFFECTED(vch,AFF_FLYING))
+! 		    damage_old(ch,vch,0,sn,DAM_BASH,TRUE);
+  		else
+! 		    damage_old( ch,vch,level + dice(2, 8), sn, DAM_BASH,TRUE);
+  	    continue;
+  	}
+  
+--- 2202,2210 ----
+  	{
+  	    if ( vch != ch && !is_safe_spell(ch,vch,TRUE))
+  		if (IS_AFFECTED(vch,AFF_FLYING))
+! 		    damage(ch,vch,0,sn,DAM_BASH,TRUE);
+  		else
+! 		    damage( ch,vch,level + dice(2, 8), sn, DAM_BASH,TRUE);
+  	    continue;
+  	}
+  
+***************
+*** 2651,2657 ****
+  
+      send_to_char("You feel your life slipping away!\n\r",victim);
+      send_to_char("Wow....what a rush!\n\r",ch);
+!     damage_old( ch, victim, dam, sn, DAM_NEGATIVE ,TRUE);
+  
+      return;
+  }
+--- 2649,2655 ----
+  
+      send_to_char("You feel your life slipping away!\n\r",victim);
+      send_to_char("Wow....what a rush!\n\r",ch);
+!     damage( ch, victim, dam, sn, DAM_NEGATIVE ,TRUE);
+  
+      return;
+  }
+***************
+*** 2677,2683 ****
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim, DAM_FIRE) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_FIRE ,TRUE);
+      return;
+  }
+  
+--- 2675,2681 ----
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim, DAM_FIRE) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_FIRE ,TRUE);
+      return;
+  }
+  
+***************
+*** 2717,2723 ****
+      dam = dice(6 + level / 2, 8);
+      if ( saves_spell( level, victim,DAM_FIRE) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_FIRE ,TRUE);
+      return;
+  }
+  
+--- 2715,2721 ----
+      dam = dice(6 + level / 2, 8);
+      if ( saves_spell( level, victim,DAM_FIRE) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_FIRE ,TRUE);
+      return;
+  }
+  
+***************
+*** 2915,2921 ****
+      char_to_room(ch,victim->in_room);
+  
+      act("$n has arrived through a gate.",ch,NULL,NULL,TO_ROOM);
+!     do_look(ch,"auto");
+  
+      if (gate_pet)
+      {
+--- 2913,2919 ----
+      char_to_room(ch,victim->in_room);
+  
+      act("$n has arrived through a gate.",ch,NULL,NULL,TO_ROOM);
+!     do_function(ch, &do_look, "auto");
+  
+      if (gate_pet)
+      {
+***************
+*** 2924,2930 ****
+  	char_from_room(ch->pet);
+  	char_to_room(ch->pet,victim->in_room);
+  	act("$n has arrived through a gate.",ch->pet,NULL,NULL,TO_ROOM);
+! 	do_look(ch->pet,"auto");
+      }
+  }
+  
+--- 2922,2928 ----
+  	char_from_room(ch->pet);
+  	char_to_room(ch->pet,victim->in_room);
+  	act("$n has arrived through a gate.",ch->pet,NULL,NULL,TO_ROOM);
+! 	do_function(ch->pet, &do_look, "auto");
+      }
+  }
+  
+***************
+*** 2968,2974 ****
+      if ( saves_spell( level, victim,DAM_HARM) )
+  	dam = UMIN( 50, dam / 2 );
+      dam = UMIN( 100, dam );
+!     damage_old( ch, victim, dam, sn, DAM_HARM ,TRUE);
+      return;
+  }
+  
+--- 2966,2972 ----
+      if ( saves_spell( level, victim,DAM_HARM) )
+  	dam = UMIN( 50, dam / 2 );
+      dam = UMIN( 100, dam );
+!     damage( ch, victim, dam, sn, DAM_HARM ,TRUE);
+      return;
+  }
+  
+***************
+*** 3166,3172 ****
+      {
+  	if (saves_spell(level,victim,DAM_FIRE))
+  	    dam = 2 * dam / 3;
+! 	damage_old(ch,victim,dam,sn,DAM_FIRE,TRUE);
+      }
+  }
+  
+--- 3164,3170 ----
+      {
+  	if (saves_spell(level,victim,DAM_FIRE))
+  	    dam = 2 * dam / 3;
+! 	damage(ch,victim,dam,sn,DAM_FIRE,TRUE);
+      }
+  }
+  
+***************
+*** 3206,3212 ****
+              spell_curse(curse_num,level,ch,(void *) vch,TARGET_CHAR);
+  	    send_to_char("You are struck down!\n\r",vch);
+  	    dam = dice(level,6);
+! 	    damage_old(ch,vch,dam,sn,DAM_ENERGY,TRUE);
+  	  }
+  	}
+  
+--- 3204,3210 ----
+              spell_curse(curse_num,level,ch,(void *) vch,TARGET_CHAR);
+  	    send_to_char("You are struck down!\n\r",vch);
+  	    dam = dice(level,6);
+! 	    damage(ch,vch,dam,sn,DAM_ENERGY,TRUE);
+  	  }
+  	}
+  
+***************
+*** 3217,3223 ****
+              spell_curse(curse_num,level/2,ch,(void *) vch,TARGET_CHAR);
+  	    send_to_char("You are struck down!\n\r",vch);
+  	    dam = dice(level,4);
+! 	    damage_old(ch,vch,dam,sn,DAM_ENERGY,TRUE);
+     	  }
+  	}
+      }  
+--- 3215,3221 ----
+              spell_curse(curse_num,level/2,ch,(void *) vch,TARGET_CHAR);
+  	    send_to_char("You are struck down!\n\r",vch);
+  	    dam = dice(level,4);
+! 	    damage(ch,vch,dam,sn,DAM_ENERGY,TRUE);
+     	  }
+  	}
+      }  
+***************
+*** 3577,3583 ****
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_LIGHTNING) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_LIGHTNING ,TRUE);
+      return;
+  }
+  
+--- 3575,3581 ----
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_LIGHTNING) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_LIGHTNING ,TRUE);
+      return;
+  }
+  
+***************
+*** 3665,3671 ****
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_ENERGY) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_ENERGY ,TRUE);
+      return;
+  }
+  
+--- 3663,3669 ----
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_ENERGY) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_ENERGY ,TRUE);
+      return;
+  }
+  
+***************
+*** 3966,3972 ****
+  
+      dam = (dam * align * align) / 1000000;
+  
+!     damage_old( ch, victim, dam, sn, DAM_HOLY ,TRUE);
+      spell_blindness(gsn_blindness, 
+  	3 * level / 4, ch, (void *) victim,TARGET_CHAR);
+  }
+--- 3964,3970 ----
+  
+      dam = (dam * align * align) / 1000000;
+  
+!     damage( ch, victim, dam, sn, DAM_HOLY ,TRUE);
+      spell_blindness(gsn_blindness, 
+  	3 * level / 4, ch, (void *) victim,TARGET_CHAR);
+  }
+***************
+*** 4194,4200 ****
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_LIGHTNING) )
+  	dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_LIGHTNING ,TRUE);
+      return;
+  }
+  
+--- 4192,4198 ----
+      dam		= number_range( dam_each[level] / 2, dam_each[level] * 2 );
+      if ( saves_spell( level, victim,DAM_LIGHTNING) )
+  	dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_LIGHTNING ,TRUE);
+      return;
+  }
+  
+***************
+*** 4344,4350 ****
+      char_to_room( victim, ch->in_room );
+      act( "$n arrives suddenly.", victim, NULL, NULL, TO_ROOM );
+      act( "$n has summoned you!", ch, NULL, victim,   TO_VICT );
+!     do_look( victim, "auto" );
+      return;
+  }
+  
+--- 4342,4348 ----
+      char_to_room( victim, ch->in_room );
+      act( "$n arrives suddenly.", victim, NULL, NULL, TO_ROOM );
+      act( "$n has summoned you!", ch, NULL, victim,   TO_VICT );
+!     do_function(victim, &do_look, "auto" );
+      return;
+  }
+  
+***************
+*** 4375,4381 ****
+      char_from_room( victim );
+      char_to_room( victim, pRoomIndex );
+      act( "$n slowly fades into existence.", victim, NULL, NULL, TO_ROOM );
+!     do_look( victim, "auto" );
+      return;
+  }
+  
+--- 4373,4379 ----
+      char_from_room( victim );
+      char_to_room( victim, pRoomIndex );
+      act( "$n slowly fades into existence.", victim, NULL, NULL, TO_ROOM );
+!     do_function(victim, &do_look, "auto" );
+      return;
+  }
+  
+***************
+*** 4459,4465 ****
+      char_from_room(victim);
+      char_to_room(victim,location);
+      act("$n appears in the room.",victim,NULL,NULL,TO_ROOM);
+!     do_look(victim,"auto");
+  }
+  
+  /*
+--- 4457,4463 ----
+      char_from_room(victim);
+      char_to_room(victim,location);
+      act("$n appears in the room.",victim,NULL,NULL,TO_ROOM);
+!     do_function(victim, &do_look, "auto");
+  }
+  
+  /*
+***************
+*** 4483,4494 ****
+      if (saves_spell(level,victim,DAM_ACID))
+      {
+  	acid_effect(victim,level/2,dam/4,TARGET_CHAR);
+! 	damage_old(ch,victim,dam/2,sn,DAM_ACID,TRUE);
+      }
+      else
+      {
+  	acid_effect(victim,level,dam,TARGET_CHAR);
+! 	damage_old(ch,victim,dam,sn,DAM_ACID,TRUE);
+      }
+  }
+  
+--- 4481,4492 ----
+      if (saves_spell(level,victim,DAM_ACID))
+      {
+  	acid_effect(victim,level/2,dam/4,TARGET_CHAR);
+! 	damage(ch,victim,dam/2,sn,DAM_ACID,TRUE);
+      }
+      else
+      {
+  	acid_effect(victim,level,dam,TARGET_CHAR);
+! 	damage(ch,victim,dam,sn,DAM_ACID,TRUE);
+      }
+  }
+  
+***************
+*** 4526,4537 ****
+  	    if (saves_spell(level,vch,DAM_FIRE))
+  	    {
+  		fire_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage_old(ch,vch,dam/2,sn,DAM_FIRE,TRUE);
+  	    }
+  	    else
+  	    {
+  		fire_effect(vch,level,dam,TARGET_CHAR);
+! 		damage_old(ch,vch,dam,sn,DAM_FIRE,TRUE);
+  	    }
+  	}
+  	else /* partial damage */
+--- 4524,4535 ----
+  	    if (saves_spell(level,vch,DAM_FIRE))
+  	    {
+  		fire_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage(ch,vch,dam/2,sn,DAM_FIRE,TRUE);
+  	    }
+  	    else
+  	    {
+  		fire_effect(vch,level,dam,TARGET_CHAR);
+! 		damage(ch,vch,dam,sn,DAM_FIRE,TRUE);
+  	    }
+  	}
+  	else /* partial damage */
+***************
+*** 4539,4550 ****
+  	    if (saves_spell(level - 2,vch,DAM_FIRE))
+  	    {
+  		fire_effect(vch,level/4,dam/8,TARGET_CHAR);
+! 		damage_old(ch,vch,dam/4,sn,DAM_FIRE,TRUE);
+  	    }
+  	    else
+  	    {
+  		fire_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage_old(ch,vch,dam/2,sn,DAM_FIRE,TRUE);
+  	    }
+  	}
+      }
+--- 4537,4548 ----
+  	    if (saves_spell(level - 2,vch,DAM_FIRE))
+  	    {
+  		fire_effect(vch,level/4,dam/8,TARGET_CHAR);
+! 		damage(ch,vch,dam/4,sn,DAM_FIRE,TRUE);
+  	    }
+  	    else
+  	    {
+  		fire_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage(ch,vch,dam/2,sn,DAM_FIRE,TRUE);
+  	    }
+  	}
+      }
+***************
+*** 4582,4593 ****
+  	    if (saves_spell(level,vch,DAM_COLD))
+  	    {
+  		cold_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage_old(ch,vch,dam/2,sn,DAM_COLD,TRUE);
+  	    }
+  	    else
+  	    {
+  		cold_effect(vch,level,dam,TARGET_CHAR);
+! 		damage_old(ch,vch,dam,sn,DAM_COLD,TRUE);
+  	    }
+  	}
+  	else
+--- 4580,4591 ----
+  	    if (saves_spell(level,vch,DAM_COLD))
+  	    {
+  		cold_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage(ch,vch,dam/2,sn,DAM_COLD,TRUE);
+  	    }
+  	    else
+  	    {
+  		cold_effect(vch,level,dam,TARGET_CHAR);
+! 		damage(ch,vch,dam,sn,DAM_COLD,TRUE);
+  	    }
+  	}
+  	else
+***************
+*** 4595,4606 ****
+  	    if (saves_spell(level - 2,vch,DAM_COLD))
+  	    {
+  		cold_effect(vch,level/4,dam/8,TARGET_CHAR);
+! 		damage_old(ch,vch,dam/4,sn,DAM_COLD,TRUE);
+  	    }
+  	    else
+  	    {
+  		cold_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage_old(ch,vch,dam/2,sn,DAM_COLD,TRUE);
+  	    }
+  	}
+      }
+--- 4593,4604 ----
+  	    if (saves_spell(level - 2,vch,DAM_COLD))
+  	    {
+  		cold_effect(vch,level/4,dam/8,TARGET_CHAR);
+! 		damage(ch,vch,dam/4,sn,DAM_COLD,TRUE);
+  	    }
+  	    else
+  	    {
+  		cold_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 		damage(ch,vch,dam/2,sn,DAM_COLD,TRUE);
+  	    }
+  	}
+      }
+***************
+*** 4635,4646 ****
+  	if (saves_spell(level,vch,DAM_POISON))
+  	{
+  	    poison_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 	    damage_old(ch,vch,dam/2,sn,DAM_POISON,TRUE);
+  	}
+  	else
+  	{
+  	    poison_effect(vch,level,dam,TARGET_CHAR);
+! 	    damage_old(ch,vch,dam,sn,DAM_POISON,TRUE);
+  	}
+      }
+  }
+--- 4633,4644 ----
+  	if (saves_spell(level,vch,DAM_POISON))
+  	{
+  	    poison_effect(vch,level/2,dam/4,TARGET_CHAR);
+! 	    damage(ch,vch,dam/2,sn,DAM_POISON,TRUE);
+  	}
+  	else
+  	{
+  	    poison_effect(vch,level,dam,TARGET_CHAR);
+! 	    damage(ch,vch,dam,sn,DAM_POISON,TRUE);
+  	}
+      }
+  }
+***************
+*** 4663,4674 ****
+      if (saves_spell(level,victim,DAM_LIGHTNING))
+      {
+  	shock_effect(victim,level/2,dam/4,TARGET_CHAR);
+! 	damage_old(ch,victim,dam/2,sn,DAM_LIGHTNING,TRUE);
+      }
+      else
+      {
+  	shock_effect(victim,level,dam,TARGET_CHAR);
+! 	damage_old(ch,victim,dam,sn,DAM_LIGHTNING,TRUE); 
+      }
+  }
+  
+--- 4661,4672 ----
+      if (saves_spell(level,victim,DAM_LIGHTNING))
+      {
+  	shock_effect(victim,level/2,dam/4,TARGET_CHAR);
+! 	damage(ch,victim,dam/2,sn,DAM_LIGHTNING,TRUE);
+      }
+      else
+      {
+  	shock_effect(victim,level,dam,TARGET_CHAR);
+! 	damage(ch,victim,dam,sn,DAM_LIGHTNING,TRUE); 
+      }
+  }
+  
+***************
+*** 4683,4689 ****
+      dam = number_range( 25, 100 );
+      if ( saves_spell( level, victim, DAM_PIERCE) )
+          dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_PIERCE ,TRUE);
+      return;
+  }
+  
+--- 4681,4687 ----
+      dam = number_range( 25, 100 );
+      if ( saves_spell( level, victim, DAM_PIERCE) )
+          dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_PIERCE ,TRUE);
+      return;
+  }
+  
+***************
+*** 4695,4700 ****
+      dam = number_range( 30, 120 );
+      if ( saves_spell( level, victim, DAM_PIERCE) )
+          dam /= 2;
+!     damage_old( ch, victim, dam, sn, DAM_PIERCE ,TRUE);
+      return;
+  }
+--- 4693,4698 ----
+      dam = number_range( 30, 120 );
+      if ( saves_spell( level, victim, DAM_PIERCE) )
+          dam /= 2;
+!     damage( ch, victim, dam, sn, DAM_PIERCE ,TRUE);
+      return;
+  }
+diff -b -w -c -r Rom24old/src/magic2.c Rom24/src/magic2.c
+*** Rom24old/src/magic2.c	Sat May 23 15:27:48 1998
+--- Rom24/src/magic2.c	Wed May 27 17:39:01 1998
+***************
+*** 35,45 ****
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "magic.h"
+  
+  
+- DECLARE_DO_FUN(do_scan);
+- 
+  extern char *target_name;
+  
+  void spell_farsight( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+--- 35,44 ----
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "magic.h"
+  
+  
+  extern char *target_name;
+  
+  void spell_farsight( int sn, int level, CHAR_DATA *ch, void *vo,int target)
+***************
+*** 50,56 ****
+          return;
+      }
+   
+!     do_scan(ch,target_name);
+  }
+  
+  
+--- 49,55 ----
+          return;
+      }
+   
+!     do_function(ch, &do_scan, target_name);
+  }
+  
+  
+diff -b -w -c -r Rom24old/src/merc.h Rom24/src/merc.h
+*** Rom24old/src/merc.h	Sat May 23 15:27:51 1998
+--- Rom24/src/merc.h	Mon May 25 13:48:53 1998
+***************
+*** 1843,1850 ****
+  #define get_carry_weight(ch)	((ch)->carry_weight + (ch)->silver/10 +  \
+  						      (ch)->gold * 2 / 5)
+  
+  
+- 
+  /*
+   * Object macros.
+   */
+--- 1843,1851 ----
+  #define get_carry_weight(ch)	((ch)->carry_weight + (ch)->silver/10 +  \
+  						      (ch)->gold * 2 / 5)
+  
++ #define act(format,ch,arg1,arg2,type)\
++ 	act_new((format),(ch),(arg1),(arg2),(type),POS_RESTING)
+  
+  /*
+   * Object macros.
+   */
+diff -b -w -c -r Rom24old/src/note.c Rom24/src/note.c
+*** Rom24old/src/note.c	Sat May 23 15:27:54 1998
+--- Rom24/src/note.c	Wed May 27 16:03:52 1998
+***************
+*** 345,360 ****
+      if ( !str_cmp( ch->name, pnote->sender ) )
+  	return TRUE;
+  
+!     if ( is_name( "all", pnote->to_list ) )
+  	return TRUE;
+  
+!     if ( IS_IMMORTAL(ch) && is_name( "immortal", pnote->to_list ) )
+  	return TRUE;
+  
+!     if (ch->clan && is_name(clan_table[ch->clan].name,pnote->to_list))
+  	return TRUE;
+  
+!     if ( is_name( ch->name, pnote->to_list ) )
+  	return TRUE;
+  
+      return FALSE;
+--- 345,360 ----
+      if ( !str_cmp( ch->name, pnote->sender ) )
+  	return TRUE;
+  
+!     if ( is_exact_name( "all", pnote->to_list ) )
+  	return TRUE;
+  
+!     if ( IS_IMMORTAL(ch) && is_exact_name( "immortal", pnote->to_list ) )
+  	return TRUE;
+  
+!     if (ch->clan && is_exact_name(clan_table[ch->clan].name,pnote->to_list))
+  	return TRUE;
+  
+!     if (is_exact_name( ch->name, pnote->to_list ) )
+  	return TRUE;
+  
+      return FALSE;
+diff -b -w -c -r Rom24old/src/skills.c Rom24/src/skills.c
+*** Rom24old/src/skills.c	Sat May 23 15:28:00 1998
+--- Rom24/src/skills.c	Wed May 27 17:32:11 1998
+***************
+*** 36,50 ****
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
+  #include "magic.h"
+  #include "recycle.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_groups	);
+- DECLARE_DO_FUN(do_help		);
+- DECLARE_DO_FUN(do_say		);
+- 
+- 
+  /* used to get new skills */
+  void do_gain(CHAR_DATA *ch, char *argument)
+  {
+--- 36,45 ----
+  #include <string.h>
+  #include <stdlib.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "magic.h"
+  #include "recycle.h"
+  
+  /* used to get new skills */
+  void do_gain(CHAR_DATA *ch, char *argument)
+  {
+***************
+*** 73,79 ****
+  
+      if (arg[0] == '\0')
+      {
+! 	do_say(trainer,"Pardon me?");
+  	return;
+      }
+  
+--- 68,74 ----
+  
+      if (arg[0] == '\0')
+      {
+! 	do_function(trainer, &do_say, "Pardon me?");
+  	return;
+      }
+  
+***************
+*** 677,687 ****
+      {
+  	if (argument[0] == '\0')
+  	{
+! 	    do_help(ch,"group help");
+  	    return TRUE;
+  	}
+  
+!         do_help(ch,argument);
+  	return TRUE;
+      }
+  
+--- 672,682 ----
+      {
+  	if (argument[0] == '\0')
+  	{
+! 	    do_function(ch, &do_help, "group help");
+  	    return TRUE;
+  	}
+  
+!         do_function(ch, &do_help, argument);
+  	return TRUE;
+      }
+  
+***************
+*** 806,812 ****
+  
+      if (!str_prefix(arg,"premise"))
+      {
+! 	do_help(ch,"premise");
+  	return TRUE;
+      }
+  
+--- 801,807 ----
+  
+      if (!str_prefix(arg,"premise"))
+      {
+! 	do_function(ch, &do_help, "premise");
+  	return TRUE;
+      }
+  
+***************
+*** 824,830 ****
+  
+      if (!str_prefix(arg,"info"))
+      {
+! 	do_groups(ch,argument);
+  	return TRUE;
+      }
+  
+--- 819,825 ----
+  
+      if (!str_prefix(arg,"info"))
+      {
+! 	do_function(ch, &do_groups, argument);
+  	return TRUE;
+      }
+  
+diff -b -w -c -r Rom24old/src/special.c Rom24/src/special.c
+*** Rom24old/src/special.c	Sat May 23 15:28:01 1998
+--- Rom24/src/special.c	Wed May 27 17:34:44 1998
+***************
+*** 36,53 ****
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "magic.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_yell		);
+- DECLARE_DO_FUN(do_open		);
+- DECLARE_DO_FUN(do_close		);
+- DECLARE_DO_FUN(do_say	);
+- DECLARE_DO_FUN(do_backstab);
+- DECLARE_DO_FUN(do_flee);
+- DECLARE_DO_FUN(do_murder);
+- 
+- 
+  /*
+   * The following special functions are available for mobiles.
+   */
+--- 36,44 ----
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "magic.h"
+  
+  /*
+   * The following special functions are available for mobiles.
+   */
+***************
+*** 346,354 ****
+               && (victim->level > ch->level)
+               && (victim->level < ch->level + 10))
+            {
+! 	     do_backstab(ch,victim->name);
+               if (ch->position != POS_FIGHTING)
+!                  do_murder(ch,victim->name);
+               /* should steal some coins right away? :) */
+               return TRUE;
+            }
+--- 337,348 ----
+               && (victim->level > ch->level)
+               && (victim->level < ch->level + 10))
+            {
+! 	     do_function(ch, &do_backstab, victim->name);
+               if (ch->position != POS_FIGHTING)
+! 	     {
+!                  do_function(ch, &do_murder, victim->name);
+! 	     }
+! 
+               /* should steal some coins right away? :) */
+               return TRUE;
+            }
+***************
+*** 373,379 ****
+                   ch->gold     += gold;
+                   return TRUE;
+   
+!         case 1:  do_flee( ch, "");
+                   return TRUE;
+   
+          default: return FALSE;
+--- 367,373 ----
+                   ch->gold     += gold;
+                   return TRUE;
+   
+!         case 1:  do_function(ch, &do_flee, "");
+                   return TRUE;
+   
+          default: return FALSE;
+***************
+*** 754,760 ****
+      sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!  MORE BLOOOOD!!!",
+  	victim->name, crime );
+      REMOVE_BIT(ch->comm,COMM_NOSHOUT);
+!     do_yell( ch, buf );
+      multi_hit( ch, victim, TYPE_UNDEFINED );
+      return TRUE;
+  }
+--- 748,754 ----
+      sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!  MORE BLOOOOD!!!",
+  	victim->name, crime );
+      REMOVE_BIT(ch->comm,COMM_NOSHOUT);
+!     do_function(ch, &do_yell, buf );
+      multi_hit( ch, victim, TYPE_UNDEFINED );
+      return TRUE;
+  }
+***************
+*** 835,841 ****
+  	sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!!  BANZAI!!",
+  	    victim->name, crime );
+   	REMOVE_BIT(ch->comm,COMM_NOSHOUT);
+! 	do_yell( ch, buf );
+  	multi_hit( ch, victim, TYPE_UNDEFINED );
+  	return TRUE;
+      }
+--- 829,835 ----
+  	sprintf( buf, "%s is a %s!  PROTECT THE INNOCENT!!  BANZAI!!",
+  	    victim->name, crime );
+   	REMOVE_BIT(ch->comm,COMM_NOSHOUT);
+! 	do_function(ch, &do_yell, buf );
+  	multi_hit( ch, victim, TYPE_UNDEFINED );
+  	return TRUE;
+      }
+***************
+*** 964,976 ****
+  	break;
+  
+      case 'O':
+! /*	do_unlock( ch, "gate" ); */
+! 	do_open( ch, "gate" );
+  	break;
+  
+      case 'C':
+! 	do_close( ch, "gate" );
+! /*	do_lock( ch, "gate" ); */
+  	break;
+  
+      case '.' :
+--- 958,970 ----
+  	break;
+  
+      case 'O':
+! /*	do_function(ch, &do_unlock, "gate" ); */
+! 	do_function(ch, &do_open, "gate" );
+  	break;
+  
+      case 'C':
+! 	do_function(ch, &do_close, "gate" );
+! /*	do_function(ch, &do_lock, "gate" ); */
+  	break;
+  
+      case '.' :
+diff -b -w -c -r Rom24old/src/update.c Rom24/src/update.c
+*** Rom24old/src/update.c	Sat May 23 15:28:06 1998
+--- Rom24/src/update.c	Wed May 27 17:35:35 1998
+***************
+*** 34,45 ****
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
+  #include "music.h"
+  
+- /* command procedures needed */
+- DECLARE_DO_FUN(do_quit		);
+- 
+- 
+  /*
+   * Local functions.
+   */
+--- 34,42 ----
+  #include <string.h>
+  #include <time.h>
+  #include "merc.h"
++ #include "interp.h"
+  #include "music.h"
+  
+  /*
+   * Local functions.
+   */
+***************
+*** 791,797 ****
+  	    dam = UMIN(ch->level,af->level/5+1);
+  	    ch->mana -= dam;
+  	    ch->move -= dam;
+! 	    damage_old( ch, ch, dam, gsn_plague,DAM_DISEASE,FALSE);
+          }
+  	else if ( IS_AFFECTED(ch, AFF_POISON) && ch != NULL
+  	     &&   !IS_AFFECTED(ch,AFF_SLOW))
+--- 788,794 ----
+  	    dam = UMIN(ch->level,af->level/5+1);
+  	    ch->mana -= dam;
+  	    ch->move -= dam;
+! 	    damage( ch, ch, dam, gsn_plague,DAM_DISEASE,FALSE);
+          }
+  	else if ( IS_AFFECTED(ch, AFF_POISON) && ch != NULL
+  	     &&   !IS_AFFECTED(ch,AFF_SLOW))
+***************
+*** 805,811 ****
+  	    {
+  	        act( "$n shivers and suffers.", ch, NULL, NULL, TO_ROOM );
+  	        send_to_char( "You shiver and suffer.\n\r", ch );
+! 	        damage_old(ch,ch,poison->level/10 + 1,gsn_poison,
+  		    DAM_POISON,FALSE);
+  	    }
+  	}
+--- 802,808 ----
+  	    {
+  	        act( "$n shivers and suffers.", ch, NULL, NULL, TO_ROOM );
+  	        send_to_char( "You shiver and suffer.\n\r", ch );
+! 	        damage(ch,ch,poison->level/10 + 1,gsn_poison,
+  		    DAM_POISON,FALSE);
+  	    }
+  	}
+***************
+*** 829,839 ****
+          ch_next = ch->next;
+  
+  	if (ch->desc != NULL && ch->desc->descriptor % 30 == save_number)
+  	    save_char_obj(ch);
+  
+          if ( ch == ch_quit )
+!             do_quit( ch, "" );
+      }
+  
+      return;
+  }
+--- 826,840 ----
+          ch_next = ch->next;
+  
+  	if (ch->desc != NULL && ch->desc->descriptor % 30 == save_number)
++ 	{
+  	    save_char_obj(ch);
++ 	}
+  
+          if (ch == ch_quit)
+! 	{
+!             do_function(ch, &do_quit, "" );
+  	}
++     }
+  
+      return;
+  }
